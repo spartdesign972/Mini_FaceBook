@@ -1,0 +1,30 @@
+nav.navbar-default {
+    background-color: #3b5998;
+    margin-bottom: 0;
+}
+
+nav.navbar-default .navbar-brand {
+    color: #fff;
+}
+
+.navbar-default .navbar-nav > li > a {
+    color: #fff;
+}
+
+h1 {
+    text-align: center;
+}
+
+legend {
+    text-align: center;
+}
+
+main {
+    width: 100%;
+    max-width: 960px;
+    background-color: #DFE3EE;
+}
+
+p {
+    text-align: center;
+}
