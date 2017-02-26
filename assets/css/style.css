@@ -1,11 +1,81 @@
-nav.navbar-default {
-    background-color: #3b5998;
-    margin-bottom: 0;
+
+body{
+	font-family: 'Roboto', sans-serif;
+	background-color: #e9ebee;
+}
+.container{
+	padding: 0;
+}
+.top{
+	margin: -20px 0 0 0;
+	height: 852px;
+	background: url('../img/auth_inscription_BG_top.png') no-repeat #e9ebee;
+	background-size: cover;
+	background-position: top;
+}
+.top h1{
+	padding-top: 100px;
+	font-family: 'Oleo Script', cursive;
+	color: #fff;
+	text-shadow: 2px 2px 2px #000;
+}
+.title{
+	font-size: 8em;
 }
 
-nav.navbar-default .navbar-brand {
-    color: #fff;
+nav.navbar-default{
+	margin: 0;
+	background-color: #3b5998;
 }
+nav.navbar-default .navbar-brand{
+	color:  #fff;
+}
+a.navbar-auth-inscription{
+	font-size: 1.5em;
+	line-height: 50px;
+	color: #fff;
+	text-decoration: none;
+}
+a.navbar-auth-inscription:hover, 
+a.navbar-auth-inscription:active{
+	color: #fff;
+}
+.navbar-default .navbar-nav > li > a{
+	color:  #fff;
+}
+.formAuth{
+	margin-top: -360px;
+}
+.inscrip{
+	margin-top: 100px;
+}
+
+/* Large Devices, Wide Screens */
+    @media only screen and (max-width : 1200px) {
+
+    }
+
+    /* Medium Devices, Desktops */
+    @media only screen and (max-width : 992px) {
+
+    }
+
+    /* Small Devices, Tablets */
+    @media only screen and (max-width : 768px) {
+		.title{
+			font-size: 6em;
+		}
+    }
+
+    /* Extra Small Devices, Phones */ 
+    @media only screen and (max-width : 480px) {
+		.title{
+			font-size: 5em;
+		}
+		.top h1{
+			padding-top: 50px;
+		}
+    }
 
 .navbar-default .navbar-nav > li > a {
     color: #fff;
@@ -28,3 +98,4 @@ main {
 p {
     text-align: center;
 }
+
