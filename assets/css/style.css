@@ -81,6 +81,19 @@ a.navbar-auth-inscription:active {
 
 p {
     text-align: center;
+
+}
+/*********************************************************************************************************
+                        CSS de la page suscribe
+*********************************************************************************************************/
+.suscribe-header
+{
+    background-color: #2724B8;
+    color: white;
+    font-size: 18px;
+    margin-bottom: 0;
+    padding-bottom: 0;
+
     position: absolute;
     left: 265px;
     top: 99px;
@@ -99,4 +112,5 @@ p {
 
 .navbar-default .navbar-nav > li > a {
     color: #fff;
+
 }
