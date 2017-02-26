@@ -52,6 +52,8 @@
 
         <main class="container">
 
+            <h2>Bonjour</h2>
+
             <section class="row">
                 <!-- En-Tête de Présentation -->
                 <div class="contact col-xs-12">
@@ -65,8 +67,23 @@
 
             <section class="row">
 
+
+                <div class="comment col-sm-4">
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="#">
+                                <img class="media-object photo-profile" src="" width="100" height="100" alt="...">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a href="#" class="anchor-username"><h4 class="media-heading">Nom</h4></a>
+                            <a href="#" class="anchor-time">Prenom</a>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- Début Formulaire -->
-                <div class="col-sm-12">
+                <div class="col-sm-8">
                     <form id="contact" class="form-horizontal" method="post" enctype="multipart/form-data">
                         <fieldset>
 
@@ -85,7 +102,7 @@
                             </div>
 
                             <br>
-                            <p>OU</p>
+                            <p><strong>OU</strong></p>
                             <br>
 
                             <!-- Url Video -->
@@ -99,21 +116,22 @@
                             <div class="form-group">
                                 <div class="col-md-8">
 
-                                    <textarea class="form-control" rows="5" id="comment" placeholder="Publier"></textarea>
+                                    <textarea class="form-control" rows="15" id="comment" placeholder="Publier"></textarea>
                                 </div>
                             </div>
 
 
                             <!-- Bouton d'Envoi -->
                             <div class="form-group">
-                                <div class="<col-xs-7></col-xs-7> col-xs-offset-3">
-                                    <button type="submit" class="btn btn-primary" name="inscription" value="Ajouter le Contact">Ajouter le Contact</button>
+                                <div class="<col-md-7></col-md-7> col-xs-offset-4">
+                                    <button type="submit" class="btn btn-primary" name="inscription" value="Ajouter le Contact">Publier</button>
                                 </div>
                             </div>
 
                         </fieldset>
                     </form>
                 </div>
+
                 <!-- /.col-sm-6 -->
                 <!-- Fin Formulaire -->
 
