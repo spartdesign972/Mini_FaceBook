@@ -1,3 +1,4 @@
+
 body{
 	font-family: 'Roboto', sans-serif;
 	background-color: #e9ebee;
@@ -75,3 +76,26 @@ a.navbar-auth-inscription:active{
 			padding-top: 50px;
 		}
     }
+
+.navbar-default .navbar-nav > li > a {
+    color: #fff;
+}
+
+h1 {
+    text-align: center;
+}
+
+legend {
+    text-align: center;
+}
+
+main {
+    width: 100%;
+    max-width: 1500px;
+    background-color: #DFE3EE;
+}
+
+p {
+    text-align: center;
+}
+
