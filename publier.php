@@ -96,6 +96,14 @@
                                 </div>
                             </div>
 
+                            <div class="form-group">
+                                <div class="col-md-8">
+
+                                    <textarea class="form-control" rows="5" id="comment" placeholder="Publier"></textarea>
+                                </div>
+                            </div>
+
+
                             <!-- Bouton d'Envoi -->
                             <div class="form-group">
                                 <div class="<col-xs-7></col-xs-7> col-xs-offset-3">
