@@ -95,7 +95,7 @@
                                     <input id="UrlVideo" name="UrlVideo" type="text" placeholder="Entrez l'Url d'une video" class="form-control input-md">
                                 </div>
                             </div>
-
+                            <!-- Publication -->
                             <div class="form-group">
                                 <div class="col-md-8">
 
