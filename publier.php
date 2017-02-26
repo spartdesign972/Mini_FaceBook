@@ -82,11 +82,8 @@
                     </div>
                 </div>
 
-
-
-
                 <!-- Début Formulaire -->
-                <div class="col-sm-" 8>
+                <div class="col-sm-8">
                     <form id="contact" class="form-horizontal" method="post" enctype="multipart/form-data">
                         <fieldset>
 
