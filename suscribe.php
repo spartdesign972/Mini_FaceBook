@@ -10,7 +10,7 @@ if(!empty($_POST)){
 	}
 	
 	if(count($errors) === 0){
-		var_dump($post);
+		
 		require_once 'inc/connect.php';
 		
 		$insert = $bdd->prepare('INSERT INTO users( UserLastName, UserFirstName, UserEmail, UserPassword, UserBirtday, UserGender, UserAvatar, UserDescription, UserSubscribeDate) VALUES ( :UserLastName, :UserFirstName, :UserEmail, :UserPassword, :UserBirtday, :UserGender, :UserAvatar, :UserDescription, :UserSubscribeDate)');
