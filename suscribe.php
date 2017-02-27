@@ -1,6 +1,8 @@
 <?php
 //session_start();
-	
+
+$errors = [];	
+
 if(!empty($_POST)){
 	
 	foreach($_POST as $key => $value){
@@ -36,7 +38,7 @@ if(!empty($_POST)){
 		$insert->execute() or die(print_r($insert->errorInfo()));;
 		
 	}//Fin de errors=0
-//}//Fin de !empty($_POST)
+}//Fin de !empty($_POST)
 
 ?><!DOCTYPE html>
 <html lang="fr">

@@ -1,6 +1,39 @@
-<?php 
-?>
-    <!DOCTYPE html>
+<?php
+session_start();
+
+$errors = [];
+
+if(!empty($_POST)){
+	
+	foreach($_POST as $key => $value){
+		
+		$post[$key] = $value; 
+		
+	}
+	
+	if(count($errors) == 0){
+		
+		require_once 'inc/connect.php';
+			
+		$select = $bdd->prepare('INSERT INTO statut( StatutTitle, StatutPictureUrl, StatutVideoURL, StatutText, StatutDatePublication, Users_idUsers) VALUES (:StatutTitle, :StatutPictureUrl, :StatutVideoURL, :StatutText, :StatutDatePublication, :Users_idUsers)');
+			
+			$select->bindValue(':StatutTitle',$post['StatutTitle']);
+			
+			$select->bindValue(':StatutPictureUrl',$post['StatutPictureUrl']);
+			
+			$select->bindValue(':StatutVideoURL',$post['StatutVideoURL']);
+			
+			$select->bindValue(':StatutText',$post['StatutText']);
+			
+			$select->bindValue(':StatutDatePublication',$post['StatutDatePublication']);
+			
+			$select->bindValue(':Users_idUsers',$_SESSION['idUser']);
+			
+		$select->execute() or die(print_r($insert->errorInfo()));;;
+		var_dump($select);
+	}//Fin de errors=0
+}//Fin de !empty($_POST)
+?><!DOCTYPE html>
     <html lang="fr">
 
     <head>
@@ -72,12 +105,12 @@
                     <div class="media">
                         <div class="media-left">
                             <a href="#">
-                                <img class="media-object photo-profile" src="" width="100" height="100" alt="...">
+                                <img class="media-object photo-profile" src="./assets/img/<?=$_SESSION['UserAvatar'];?>" width="100" height="100" alt="...">
                             </a>
                         </div>
                         <div class="media-body">
-                            <a href="#" class="anchor-username"><h4 class="media-heading">Nom</h4></a>
-                            <a href="#" class="anchor-time">Prenom</a>
+                            <a href="#" class="anchor-username"><h4 class="media-heading"><?=$_SESSION['lastname']; ?></h4></a>
+                            <a href="#" class="anchor-time"><?=$_SESSION['firstname']; ?></a>
                         </div>
                     </div>
                 </div>
@@ -90,14 +123,14 @@
                             <!-- Titre de la publication -->
                             <div class="form-group">
                                 <div class="col-md-8">
-                                    <input id="title" name="title" type="text" placeholder="Titre de la publication" class="form-control input-md">
+                                    <input id="title" name="StatutTitle" type="text" placeholder="Titre de la publication" class="form-control input-md">
                                 </div>
                             </div>
 
                             <!-- Image -->
                             <div class="form-group">
                                 <div class="col-md-8">
-                                    <input id="picture" name="picture" type="file" placeholder="Image à la une" accept="image/*" class="form-control input-md">
+                                    <input id="picture" name="StatutPictureUrl" type="file" placeholder="Image à la une" accept="image/*" class="form-control input-md">
                                 </div>
                             </div>
 
@@ -109,14 +142,14 @@
                             <div class="form-group">
 
                                 <div class="col-md-8">
-                                    <input id="UrlVideo" name="UrlVideo" type="text" placeholder="Entrez l'Url d'une video" class="form-control input-md">
+                                    <input id="UrlVideo" name="StatutVideoURL" type="text" placeholder="Entrez l'Url d'une video" class="form-control input-md">
                                 </div>
                             </div>
                             <!-- Publication -->
                             <div class="form-group">
                                 <div class="col-md-8">
 
-                                    <textarea class="form-control" rows="15" id="comment" placeholder="Publier"></textarea>
+                                    <textarea class="form-control" rows="15" id="comment" name="StatutText" placeholder="Publier"></textarea>
                                 </div>
                             </div>
 
