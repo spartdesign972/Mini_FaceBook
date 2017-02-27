@@ -1,24 +1,18 @@
-<!DOCTYPE html>
+<?php
+
+?><!DOCTYPE html>
 <html lang="fr">
 
 <head>
     <meta charset="UTF-8">
     <title>Modification Profile</title>
 
-    <!-- Pour Internet Explorer : S'assurer qu'il utilise la dernière version du moteur de rendu -->
-    <meta http-equiv="X-UA-Compatible" content="IE-edge">
-
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    
+    <!-- inclusion du fichier qui contient toutes besoin commune au page, comme le css, etc -->
+    <?php include 'inc/include-head.php';?>
 
     <link rel="stylesheet" type="text/css" href="assets/css/modification.css">
-
-    <!-- Affichage sans zoom pour les mobiles -->
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <!-- FontAwesome -->
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-
+    
 </head>
 
 <body>
@@ -137,14 +131,8 @@
     </div>
 
 
-    <!-- jQuery -->
-    <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
-
-    <!-- Bootstrap JS -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-
-    <!-- Validation Plugin -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.11.9/validator.min.js" integrity="sha256-dHf/YjH1A4tewEsKUSmNnV05DDbfGN3g7NMq86xgGh8=" crossorigin="anonymous"></script>
+   <!-- inclusion du fichier qui contient tous les script des pages -->
+    <?php include 'inc/include-script.php';?>
 
     <script>
         // -- Initialisation de jQuery

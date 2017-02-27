@@ -59,8 +59,8 @@
 		</form>
 	</main>
 
-	<!-- inclusion du fichier qui contient tous les script des pages -->
-	<?php include 'inc/include-script.php';?>
+<!-- inclusion du fichier qui contient tous les script des pages -->
+    <?php include 'inc/include-script.php';?>	
 <script>
   	$( function() {
     $( "#datepicker" ).datepicker();

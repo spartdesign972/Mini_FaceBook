@@ -12,3 +12,6 @@
 
 <!-- jQuery UI (pour jquery user interface) datePicker -->
 <script type="text/javascript" src="includes/js/jquery.ui.datepicker-fr.js"></script>
+
+<!-- Validation Plugin -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.11.9/validator.min.js" integrity="sha256-dHf/YjH1A4tewEsKUSmNnV05DDbfGN3g7NMq86xgGh8=" crossorigin="anonymous"></script>
