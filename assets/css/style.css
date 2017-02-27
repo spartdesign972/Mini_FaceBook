@@ -86,6 +86,55 @@ a.navbar-auth-inscription:active {
 
 /*========== fin du css page Auth/inscription ==========*/
 
+/*=======================================================
+                Css pour mesPlublications
+=======================================================*/
+.sidebar-left{
+    float: left;
+    width: 25%;
+    min-width: 170px;
+    height: 100%;
+    margin-right: 10px;
+    padding-top: 20px;
+}
+.navside ul{
+    padding: 0;
+}
+.navside{
+    margin-top: 10vh;
+}
+.navside li{
+    list-style: none;
+    margin-bottom: 5px;
+    font-size: 1.2em;
+}
+.navside li a{
+    color: #000;
+}
+.navside li a:hover{
+    font-weight: bold;
+}
+.content{
+    float: left;
+    width: 70%;
+    min-width: 480px;
+    height: 100%;
+    padding-top: 20px;
+}
+hr{
+    margin-top: 50px;
+    border: 1px solid #aaa;
+}
+.publications{
+    margin-top: 50px;
+    margin-left: 50px;
+}
+.publica a{
+    margin-left: 15px;
+}
+
+/*============= fin css mesPublications ==============*/
+
 
 p {
     text-align: center;
