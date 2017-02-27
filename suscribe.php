@@ -1,5 +1,43 @@
 <?php
 //session_start();
+	
+if(!empty($_POST)){
+	
+	foreach($_POST as $key => $value){
+		
+		$post[$key] = $value; 
+		
+	}
+	
+	if(count($errors) === 0){
+		var_dump($post);
+		require_once 'inc/connect.php';
+		
+		$insert = $bdd->prepare('INSERT INTO users( UserLastName, UserFirstName, UserEmail, UserPassword, UserBirtday, UserGender, UserAvatar, UserDescription, UserSubscribeDate) VALUES ( :UserLastName, :UserFirstName, :UserEmail, :UserPassword, :UserBirtday, :UserGender, :UserAvatar, :UserDescription, :UserSubscribeDate)');
+			
+			$insert->bindValue(':UserLastName',$post['UserLastName']);
+
+			$insert->bindValue(':UserFirstName',$post['UserFirstName']);
+			
+			$insert->bindValue(':UserEmail',$post['UserEmail']);
+			
+			$insert->bindValue(':UserPassword',$post['UserPassword']);
+
+			$insert->bindValue(':UserBirtday',$post['UserBirtday']);
+
+			$insert->bindValue(':UserGender',$post['UserGender']);
+
+			$insert->bindValue(':UserAvatar',$post['UserAvatar']);
+
+			$insert->bindValue(':UserDescription',$post['UserDescription']);
+
+			$insert->bindValue(':UserSubscribeDate',$post['UserSubscribeDate']);
+		
+		$insert->execute() or die(print_r($insert->errorInfo()));;
+		
+	}//Fin de errors=0
+//}//Fin de !empty($_POST)
+
 ?><!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -35,6 +73,9 @@
 				</div>
 				<div class="form-group col-lg-12 col-md-12 text-center">
 				<input type="email" class="form-control" name="UserEmail" id="UserEmail" placeholder="Email">
+				</div>
+				<div class="form-group col-lg-12 col-md-12 text-center">
+				<input type="password" class="form-control" name="UserPassword" id="UserEmail" placeholder="Mot de passe">
 				</div>
 				<div class="form-group col-lg-12 col-md-12 text-center">
 				<input type="date" class="form-control" name="UserBirthday" id="datepicker" placeholder="Date de naissance">
