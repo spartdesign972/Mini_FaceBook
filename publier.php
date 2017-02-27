@@ -1,43 +1,31 @@
-<?php 
-?>
-    <!DOCTYPE html>
-    <html lang="fr">
+<?php
+session_start();
 
+require_once 'inc/connect.php';
+
+?>
+<!DOCTYPE html>
+<html lang="fr">
     <head>
         <meta charset="UTF-8">
         <title>Plublication</title>
-
-        <!-- Pour Internet Explorer : S'assurer qu'il utilise la dernière version du moteur de rendu -->
-        <meta http-equiv="X-UA-Compatible" content="IE-edge">
-
-        <!-- Affichage sans zoom pour les mobiles -->
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-
-        <!-- Bootstrap CSS -->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-
-        <!-- Styles CSS -->
-        <link rel="stylesheet" href="assets/css/style.css">
-
-        <!-- HTML5 Shiv -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js" integrity="sha256-sqQlcOZwgKkBRRn5WvShSsuopOdq9c3U+StqgPiFhHQ=" crossorigin="anonymous"></script>
-
+        <!-- inclusion du fichier qui contient toutes besoin commune au page, comme le css, etc -->
+        <?php include 'inc/include-head.php';?>
     </head>
-
     <body>
+
         <nav class="navbar navbar-default" role="navigation">
             <div class="container">
                 <!-- Brand and toggle get grouped for better mobile display -->
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
                     </button>
                     <a class="navbar-brand" href="#">WF3 Mini FaceBook</a>
                 </div>
-
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse navbar-ex1-collapse">
                     <ul class="nav navbar-nav navbar-right">
@@ -49,106 +37,72 @@
             </div>
         </nav>
 
+        <div class="container">
+            <div class="sidebar-left text-center">
+            <h4>bonjour</h4>
+            <img src="./assets/img/<?=$_SESSION['UserAvatar']; ?>" class="img-responsive img-circle" alt="Image Avatar">
+            <h4><?=$_SESSION['lastname']; ?></h4>
+            <h4><?=$_SESSION['firstname']; ?></h4>
+            <div class="navside">
+                <ul>
+                    <li><a href="publier.php">Publier</a></li>
+                    <li><a href="#">Mes Publications</a></li>
+                </ul>
+            </div>
 
-        <main class="container">
+        </div>
 
-            <h2>Bonjour</h2>
+        <div class="content">
+            <!-- En-Tête de Présentation -->
+            <div class="pageTitle text-center">
+                <h1>Publier</h1>
+            </div>
 
-            <section class="row">
-                <!-- En-Tête de Présentation -->
-                <div class="contact col-xs-12">
-                    <h1>Publier</h1>
-                </div>
+            <!-- Début Formulaire -->
 
-
-
-
-            </section>
-
-            <section class="row">
-
-
-                <div class="comment col-sm-4">
-                    <div class="media">
-                        <div class="media-left">
-                            <a href="#">
-                                <img class="media-object photo-profile" src="" width="100" height="100" alt="...">
-                            </a>
+                <form id="contact" class="form-horizontal" method="post" enctype="multipart/form-data">
+                    <fieldset>
+                        <!-- Titre de la publication -->
+                        <div class="form-group">
+                            <div class="col-md-8">
+                                <input id="title" name="title" type="text" placeholder="Titre de la publication" class="form-control input-md">
+                            </div>
                         </div>
-                        <div class="media-body">
-                            <a href="#" class="anchor-username"><h4 class="media-heading">Nom</h4></a>
-                            <a href="#" class="anchor-time">Prenom</a>
+                        <!-- Image -->
+                        <div class="form-group">
+                            <div class="col-md-8">
+                                <input id="picture" name="picture" type="file" placeholder="Image à la une" accept="image/*" class="form-control input-md">
+                            </div>
                         </div>
-                    </div>
-                </div>
-
-                <!-- Début Formulaire -->
-                <div class="col-sm-8">
-                    <form id="contact" class="form-horizontal" method="post" enctype="multipart/form-data">
-                        <fieldset>
-
-                            <!-- Titre de la publication -->
-                            <div class="form-group">
-                                <div class="col-md-8">
-                                    <input id="title" name="title" type="text" placeholder="Titre de la publication" class="form-control input-md">
-                                </div>
+                        <br>
+                        <p><strong>OU</strong></p>
+                        <br>
+                        <!-- Url Video -->
+                        <div class="form-group">
+                            <div class="col-md-8">
+                                <input id="UrlVideo" name="UrlVideo" type="text" placeholder="Entrez l'Url d'une video" class="form-control input-md">
                             </div>
-
-                            <!-- Image -->
-                            <div class="form-group">
-                                <div class="col-md-8">
-                                    <input id="picture" name="picture" type="file" placeholder="Image à la une" accept="image/*" class="form-control input-md">
-                                </div>
+                        </div>
+                        <!-- Publication -->
+                        <div class="form-group">
+                            <div class="col-md-8">
+                                <textarea class="form-control" rows="15" id="comment" placeholder="Publier"></textarea>
                             </div>
-
-                            <br>
-                            <p><strong>OU</strong></p>
-                            <br>
-
-                            <!-- Url Video -->
-                            <div class="form-group">
-
-                                <div class="col-md-8">
-                                    <input id="UrlVideo" name="UrlVideo" type="text" placeholder="Entrez l'Url d'une video" class="form-control input-md">
-                                </div>
+                        </div>
+                        <!-- Bouton d'Envoi -->
+                        <div class="form-group">
+                            <div class="<col-md-7></col-md-7> col-xs-offset-4">
+                                <button type="submit" class="btn btn-primary" name="inscription" value="Ajouter le Contact">Publier</button>
                             </div>
-                            <!-- Publication -->
-                            <div class="form-group">
-                                <div class="col-md-8">
-
-                                    <textarea class="form-control" rows="15" id="comment" placeholder="Publier"></textarea>
-                                </div>
-                            </div>
-
-
-                            <!-- Bouton d'Envoi -->
-                            <div class="form-group">
-                                <div class="<col-md-7></col-md-7> col-xs-offset-4">
-                                    <button type="submit" class="btn btn-primary" name="inscription" value="Ajouter le Contact">Publier</button>
-                                </div>
-                            </div>
-
-                        </fieldset>
-                    </form>
-                </div>
-
-                <!-- /.col-sm-6 -->
-                <!-- Fin Formulaire -->
-
-            </section>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+            <!-- /.col-sm-6 -->
+            <!-- Fin Formulaire -->
+        </div>
         </main>
-
-
-
-
-
-
-
-        <!-- jQuery -->
-        <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
-
-        <!-- Bootstrap JS -->
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+        <!-- inclusion du fichier qui contient tous les script des pages -->
+        <?php include 'inc/include-script.php';?>
     </body>
-
-    </html>
+</html>
