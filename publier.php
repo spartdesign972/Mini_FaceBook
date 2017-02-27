@@ -28,8 +28,11 @@ require_once 'inc/connect.php';
                 </div>
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse navbar-ex1-collapse">
+                <ul class="nav navbar-nav navbar-left">
+                    <li><a href="publicationTrade.php">Les Postes</a></li>
+                </ul>
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="#">Mon Profile</a></li>
+                        <li><a href="modificationProfile.php">Mon Profile</a></li>
                         <li><a href="#">Logout</a></li>
                     </ul>
                 </div>
@@ -45,8 +48,8 @@ require_once 'inc/connect.php';
             <h4><?=$_SESSION['firstname']; ?></h4>
             <div class="navside">
                 <ul>
-                    <li><a href="publier.php">Publier</a></li>
-                    <li><a href="#">Mes Publications</a></li>
+                    <!-- <li><a href="publier.php">Publier</a></li> -->
+                    <li><a href="mesPublications.php">Mes Publications</a></li>
                 </ul>
             </div>
 
@@ -91,7 +94,7 @@ require_once 'inc/connect.php';
                         </div>
                         <!-- Bouton d'Envoi -->
                         <div class="form-group">
-                            <div class="<col-md-7></col-md-7> col-xs-offset-4">
+                            <div class="col-md-8 text-center">
                                 <button type="submit" class="btn btn-primary" name="inscription" value="Ajouter le Contact">Publier</button>
                             </div>
                         </div>

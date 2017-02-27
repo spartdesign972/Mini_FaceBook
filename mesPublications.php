@@ -8,10 +8,10 @@ require_once 'inc/connect.php';
 $select = $bdd->prepare('SELECT * FROM users WHERE idUser=2');
 	$select->execute();
 	$user = $select->Fetch(PDO::FETCH_ASSOC);
-				$_SESSION['lastname']    = $user['UserLastName'];			
-				$_SESSION['firstname']   = $user['UserFirstName'];
-				$_SESSION['idUser']      = $user['idUser'];
-				$_SESSION['UserAvatar']  = $user['UserAvatar'];
+				// $_SESSION['lastname']    = $user['UserLastName'];			
+				// $_SESSION['firstname']   = $user['UserFirstName'];
+				// $_SESSION['idUser']      = $user['idUser'];
+				// $_SESSION['UserAvatar']  = $user['UserAvatar'];
 				
 //Fin élément de test
 	$statut = $bdd->prepare('SELECT StatutTitle FROM statut WHERE 	Users_idUsers=:idUser');
@@ -44,8 +44,11 @@ $select = $bdd->prepare('SELECT * FROM users WHERE idUser=2');
 			</div>
 			<!-- Collect the nav links, forms, and other content for toggling -->
 			<div class="collapse navbar-collapse navbar-ex1-collapse">
+				<ul class="nav navbar-nav navbar-left">
+                    <li><a href="publicationTrade.php">Les Postes</a></li>
+                </ul>
 				<ul class="nav navbar-nav navbar-right">
-					<li><a href="#">Mon Profile</a></li>
+					<li><a href="modificationProfile.php">Mon Profile</a></li>
 					<li><a href="#">Logout</a></li>
 				</ul>
 				</div><!-- /.navbar-collapse -->
@@ -61,7 +64,7 @@ $select = $bdd->prepare('SELECT * FROM users WHERE idUser=2');
 			<div class="navside">
 				<ul>
 					<li><a href="publier.php">Publier</a></li>
-					<li><a href="#">Mes Publications</a></li>
+					<!-- <li><a href="#">Mes Publications</a></li> -->
 				</ul>
 			</div>
 
