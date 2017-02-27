@@ -3,6 +3,22 @@ session_start();
 
 require_once 'inc/connect.php';
 
+//pour tester
+
+$select = $bdd->prepare('SELECT * FROM users WHERE idUser=2');
+	$select->execute();
+	$user = $select->Fetch(PDO::FETCH_ASSOC);
+				$_SESSION['lastname']    = $user['UserLastName'];			
+				$_SESSION['firstname']   = $user['UserFirstName'];
+				$_SESSION['idUser']      = $user['idUser'];
+				$_SESSION['UserAvatar']  = $user['UserAvatar'];
+				
+//Fin élément de test
+	$statut = $bdd->prepare('SELECT StatutTitle FROM statut WHERE 	Users_idUsers=:idUser');
+	$statut->bindValue(':idUser',$_SESSION['idUser'],PDO::PARAM_INT);
+	$statut->execute();
+	$statut_list = $statut->FetchAll(PDO::FETCH_ASSOC);
+
 ?><!DOCTYPE html>
 <html lang="fr">
 	<head>
@@ -39,12 +55,12 @@ require_once 'inc/connect.php';
 		<div class="container">
 			<div class="sidebar-left text-center">
 			<h4>bonjour</h4>
-			<img src="./assets/img/avatar.png" class="img-responsive img-circle" alt="Image Avatar">
-			<h4>Nom</h4>
-			<h4>Prenom</h4>
+			<img src="./assets/img/<?=$_SESSION['UserAvatar']; ?>" class="img-responsive img-circle" alt="Image Avatar">
+			<h4><?=$_SESSION['lastname']; ?></h4>
+			<h4><?=$_SESSION['firstname']; ?></h4>
 			<div class="navside">
 				<ul>
-					<li><a href="#">Publier</a></li>
+					<li><a href="publier.php">Publier</a></li>
 					<li><a href="#">Mes Publications</a></li>
 				</ul>
 			</div>
@@ -56,27 +72,19 @@ require_once 'inc/connect.php';
 			</div>
 			<hr>
 			<div class="publications">
+			
+			<?php foreach($statut_list as $value):?>
+			
 				<div class="publica">
 					<h3>
-						Titre de la publication
-						<a href="#"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-						<a href="#"><i class="fa fa-trash" aria-hidden="true"></i></a>
+						<?= $value['StatutTitle']; ?>
+						<a href="publier.php"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+						<a href="effacer.php"><i class="fa fa-trash" aria-hidden="true"></i></a>
 					</h3>
 				</div>
-				<div class="publica">
-					<h3>
-						Titre de la publication
-						<a href="#"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-						<a href="#"><i class="fa fa-trash" aria-hidden="true"></i></a>
-					</h3>
-				</div>
-				<div class="publica">
-					<h3>
-						Titre de la publication
-						<a href="#"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-						<a href="#"><i class="fa fa-trash" aria-hidden="true"></i></a>
-					</h3>
-				</div>
+				
+			<?php endforeach; ?>
+				
 			</div>
 		</div>
 		</div>
