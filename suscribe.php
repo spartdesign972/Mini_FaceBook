@@ -9,13 +9,16 @@
 	<?php include 'inc/include-head.php';?>
 </head>
 <body>
+<!-- La topbar de nav -->
+		<nav class="navbar navbar-default text-center navAuth" role="navigation">
+			<div class="container">
+				<a class="navbar-auth-inscription" href="#">WF3 Mini FaceBook</a>
+				</div><!-- /.navbar-collapse -->
+			</div>
+		</nav>
+		<!-- fin topBar -->
 	<!-- Contenu principal -->
 	<main class="container suscribe-body">
-
-	<!-- header -->
-	<header class="text-center suscribe-header">
-		<p><strong>WF3 </strong>Mini Facebook</p>
-	</header>
 	
 	<!-- titre du formulaire qui donne l'impression d'etre le titre de la page -->
 	<section class="text-center page-header container-full">
