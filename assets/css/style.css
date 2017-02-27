@@ -41,7 +41,9 @@ nav.navbar-default{
 nav.navbar-default .navbar-brand {
     color: #fff;
 }
-
+nav.navbar-default .navbar-brand:hover{
+    color: #fff;
+}
 a.navbar-auth-inscription {
     font-size: 1.5em;
     line-height: 50px;
@@ -160,35 +162,16 @@ p {
 }
 
 
-.navbar-default .navbar-nav > li > a {
-    color: #fff;
-
-}
-
 /*****************************************************
         PUBLICATION TRADE
 *****************************************************/
 
 /* ---------------------
-    MENU
------------------------- */
-
-nav.navbar-default .navbar-brand:hover{
-    font-weight: bold;
-    text-decoration: underline;
-    color: black;
-}
-
-.navbar-default .navbar-nav > li > a:hover{
-    font-weight: bold;
-    text-decoration: underline;
-    color: black;
-}
-
-
-/* ---------------------
     SIDEBAR
 ------------------------ */
+#modification{
+    margin-top: 50px;
+}
 .sidebar{
     text-align: center;    
 }
