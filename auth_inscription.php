@@ -25,7 +25,7 @@ if(!empty($_POST)){
 
 	if(count($errors) === 0 ){
 		// ===== insertion des infos dans la base de donnée
-		$res = $bdd->prepare('SELECT UserLastName, UserFirstName, UserEmail, UserPassword, idUser  FROM users WHERE UserEmail = :dataEmail');
+		$res = $bdd->prepare('SELECT UserLastName, UserFirstName, UserEmail, UserPassword, UserAvatar, idUser  FROM users WHERE UserEmail = :dataEmail');
 		
 		$res->bindValue(':dataEmail', $post['email'], PDO::PARAM_STR);
 		
@@ -38,7 +38,9 @@ if(!empty($_POST)){
 				$_SESSION['lastname']    = $user['UserLastName'];
 				$_SESSION['firstname']   = $user['UserFirstName'];
 				$_SESSION['idUser']      = $user['idUser'];
+				$_SESSION['UserAvatar']  = $user['UserAvatar'];
 
+				
 				// header('location: exo_recette.php');
 			}else{
 				$passwordMatch = false;
