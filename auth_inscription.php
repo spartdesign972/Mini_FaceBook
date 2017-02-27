@@ -73,7 +73,7 @@ if(!empty($_POST)){
 	</head>
 	<body>
 		<!-- La topbar de nav -->
-		<nav class="navbar navbar-default text-center navAuth" role="navigation">
+		<nav class="navbar navbar-default text-center" role="navigation">
 			<div class="container">
 				<a class="navbar-auth-inscription" href="#">WF3 Mini FaceBook</a>
 				</div><!-- /.navbar-collapse -->

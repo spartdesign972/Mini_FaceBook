@@ -1,5 +1,8 @@
 /*==============================================
-        Css pour la page auth/inscription
+        Css pour les pages
+        auth/inscription
+        publicationTrade
+        subscribe
 ==============================================*/
 
 body {
@@ -30,9 +33,9 @@ body {
     font-size: 8em;
 }
 
-nav.navAuth {
-    margin: 0;
-    background-color: #3b5998;
+nav.navbar-default{
+    background-color: #3b5998 !important;
+    margin-bottom: 0px !important;
 }
 
 nav.navbar-default .navbar-brand {
@@ -160,4 +163,75 @@ p {
 .navbar-default .navbar-nav > li > a {
     color: #fff;
 
+}
+
+/*****************************************************
+        PUBLICATION TRADE
+*****************************************************/
+
+/* ---------------------
+    MENU
+------------------------ */
+
+nav.navbar-default .navbar-brand:hover{
+    font-weight: bold;
+    text-decoration: underline;
+    color: black;
+}
+
+.navbar-default .navbar-nav > li > a:hover{
+    font-weight: bold;
+    text-decoration: underline;
+    color: black;
+}
+
+
+/* ---------------------
+    SIDEBAR
+------------------------ */
+.sidebar{
+    text-align: center;    
+}
+
+.identifiant{
+    margin-top: 10px;
+}
+
+.identifiant >p{
+   font-size: 30px; 
+}
+
+.publie{
+    margin-top: 310px;
+}
+.publie >p{
+    font-size: 30px;
+}
+
+/* ---------------------
+    CONTENUE
+------------------------ */
+#partie1{
+    padding: 12px;
+    background-color: white;
+    margin-bottom: 50px;
+}
+
+h3{
+    text-align: center;
+}
+.pouce{
+    text-align: center;
+    margin-top: 70px
+}
+
+#partie2{
+    padding: 12px;
+    background-color: white;
+    margin-bottom: 50px
+}
+
+.pouce2{
+    text-align: center;
+    margin-top: 70px
 }
