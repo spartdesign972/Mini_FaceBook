@@ -16,7 +16,7 @@ if(!empty($_POST)){
 		
 		require_once 'inc/connect.php';
 		
-		$insert = $bdd->prepare('INSERT INTO users( UserLastName, UserFirstName, UserEmail, UserPassword, UserBirtday, UserGender, UserAvatar, UserDescription, UserSubscribeDate) VALUES ( :UserLastName, :UserFirstName, :UserEmail, :UserPassword, :UserBirtday, :UserGender, :UserAvatar, :UserDescription, :UserSubscribeDate)');
+		$insert = $bdd->prepare('INSERT INTO users( UserLastName, UserFirstName, UserEmail, UserPassword, UserBirthday, UserGender, UserAvatar, UserDescription, UserSubscribeDate) VALUES ( :UserLastName, :UserFirstName, :UserEmail, :UserPassword, :UserBirthday, :UserGender, :UserAvatar, :UserDescription, :UserSubscribeDate)');
 			
 			$insert->bindValue(':UserLastName',$post['UserLastName']);
 
@@ -26,7 +26,7 @@ if(!empty($_POST)){
 			
 			$insert->bindValue(':UserPassword',$post['UserPassword']);
 
-			$insert->bindValue(':UserBirtday',$post['UserBirtday']);
+			$insert->bindValue(':UserBirthday',$post['UserBirthday']);
 
 			$insert->bindValue(':UserGender',$post['UserGender']);
 
@@ -99,7 +99,8 @@ if(!empty($_POST)){
 					<label class="radio-inline"><input type="radio" name="UserGender">Homme</label>
 					<label class="radio-inline"><input type="radio" name="UserGender">Femme</label>
 				</div>
-				<div class="form-group text-center">
+									
+  <div class="form-group text-center">
 					<input type="submit" class="btn btn-primary text-center">
 				</div>
 				
