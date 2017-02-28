@@ -99,8 +99,11 @@ a.navbar-auth-inscription:active {
     width: 25%;
     min-width: 170px;
     height: 100%;
-    margin-right: 10px;
+    margin-top: 20px;
+    margin-right: 20px;
     padding-top: 20px;
+    padding-right: 10px;
+    border-right: 1px solid rgba(0, 0, 0, 0.2);
 }
 .navside ul{
     padding: 0;
@@ -165,32 +168,9 @@ p {
 /*****************************************************
         PUBLICATION TRADE
 *****************************************************/
-
-/* ---------------------
-    SIDEBAR
------------------------- */
 #modification{
     margin-top: 50px;
 }
-.sidebar{
-    text-align: center;    
-}
-
-.identifiant{
-    margin-top: 10px;
-}
-
-.identifiant >p{
-   font-size: 30px; 
-}
-
-.publie{
-    margin-top: 310px;
-}
-.publie >p{
-    font-size: 30px;
-}
-
 /* ---------------------
     CONTENUE
 ------------------------ */

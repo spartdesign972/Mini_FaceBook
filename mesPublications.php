@@ -26,7 +26,9 @@ $select = $bdd->prepare('SELECT * FROM users WHERE idUser=2');
 		<title>Auth-inscription</title>
 		<!-- inclusion du fichier qui contient toutes besoin commune au page, comme le css, etc -->
 		<?php include 'inc/include-head.php';?>
+
 		<link href="https://fonts.googleapis.com/css?family=Oleo+Script|Roboto" rel="stylesheet">
+
 	</head>
 <body>
 	<!-- La topbar de nav -->
@@ -56,40 +58,30 @@ $select = $bdd->prepare('SELECT * FROM users WHERE idUser=2');
 		</nav>
 		<!-- fin topBar -->
 		<div class="container">
-			<div class="sidebar-left text-center">
-			<h4>bonjour</h4>
-			<img src="./assets/img/<?=$_SESSION['UserAvatar']; ?>" class="img-responsive img-circle" alt="Image Avatar">
-			<h4><?=$_SESSION['lastname']; ?></h4>
-			<h4><?=$_SESSION['firstname']; ?></h4>
-			<div class="navside">
-				<ul>
-					<li><a href="publier.php">Publier</a></li>
-					<!-- <li><a href="#">Mes Publications</a></li> -->
-				</ul>
-			</div>
+			<!-- Sidebar -->
+			<?php require_once 'inc/sidebar.php'; ?>
 
-		</div>
-		<div class="content">
-			<div class="pageTitle text-center">
-				<h1>Mes Publications</h1>
-			</div>
-			<hr>
-			<div class="publications">
-			
-			<?php foreach($statut_list as $value):?>
-			
-				<div class="publica">
-					<h3>
-						<?= $value['StatutTitle']; ?>
-						<a href="publier.php"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-						<a href="effacer.php"><i class="fa fa-trash" aria-hidden="true"></i></a>
-					</h3>
+			<div class="content">
+				<div class="pageTitle text-center">
+					<h1>Mes Publications</h1>
 				</div>
+				<hr>
+				<div class="publications">
 				
-			<?php endforeach; ?>
+				<?php foreach($statut_list as $value):?>
 				
+					<div class="publica">
+						<h3>
+							<?= $value['StatutTitle']; ?>
+							<a href="publier.php"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+							<a href="effacer.php"><i class="fa fa-trash" aria-hidden="true"></i></a>
+						</h3>
+					</div>
+					
+				<?php endforeach; ?>
+					
+				</div>
 			</div>
-		</div>
 		</div>
 
 
