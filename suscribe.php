@@ -37,7 +37,11 @@ require_once 'inc/connect.php';
 				<input type="text" class="form-control" name="UserFirstName" id="UserFirstName" placeholder="Prenom">
 				</div>
 				<div class="form-group col-lg-12 col-md-12 text-center">
-				<input type="email" class="form-control" name="UserEmail" id="UserEmail" placeholder="Email">
+					<div class="input-group">
+						<span class="input-group-addon">@</span>
+		                <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+						<input type="email" class="form-control" name="UserEmail" id="UserEmail" placeholder="Email">
+					</div>
 				</div>
 				<div class="form-group col-lg-12 col-md-12 text-center">
 				<input type="date" class="form-control" name="UserBirthday" id="datepicker" placeholder="Date de naissance">
