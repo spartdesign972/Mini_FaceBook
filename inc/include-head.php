@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
 <!-- Styles CSS -->
-<link rel="stylesheet" href="assets/css/style.css">
+<link rel="stylesheet" href="assets/css/suscribe.css">
 
 <!-- HTML5 Shiv -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js" integrity="sha256-sqQlcOZwgKkBRRn5WvShSsuopOdq9c3U+StqgPiFhHQ=" crossorigin="anonymous"></script>
