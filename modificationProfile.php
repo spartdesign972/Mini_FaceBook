@@ -34,8 +34,11 @@
 
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse navbar-ex1-collapse">
+                <ul class="nav navbar-nav navbar-left">
+                    <li><a href="publicationTrade.php">Les Postes</a></li>
+                </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#">Mon Profile</a></li>
+                    <!-- <li><a href="#">Mon Profile</a></li> -->
                     <li><a href="#">Logout</a></li>
                 </ul>
             </div>

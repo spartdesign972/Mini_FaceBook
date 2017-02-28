@@ -6,7 +6,7 @@ require_once 'inc/connect.php';
 $post          = [];
 $errors        = [];
 $passwordMatch = true;
-$emailNotExist = '';
+$emailNotExist = true;
 
 
 
@@ -41,7 +41,7 @@ if(!empty($_POST)){
 				$_SESSION['UserAvatar']  = $user['UserAvatar'];
 
 				
-				// header('location: exo_recette.php');
+				header('location: mesPublications.php');
 			}else{
 				$passwordMatch = false;
 			}
@@ -95,11 +95,11 @@ if(!empty($_POST)){
 			<?php endif; ?>
 
 			<?php 
-			if(!$passwordMatch){
-				echo '<div class="container">';
+			if(!$passwordMatch || !$emailNotExist){
+				echo '<div class="container text-center">';
 				echo '<div class="alert alert-danger authAlert">';
-				echo '<h3>bonjour '.$user['UserFirstName'].'<br>';
-				echo 'Les mots de passes ne correspondent pas</h3><br>';
+				echo '<h3>bonjour '.$post['email'].'<hr>';
+				echo 'Votre email ou les mots de passes ne correspondent pas</h3><br>';
 				echo '<a href="auth_inscription.php" class="btn btn-default">Réessayer</a>';
 				echo '</div>';
 				echo '</div>';

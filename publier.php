@@ -30,8 +30,11 @@ require_once 'inc/connect.php';
                 </div>
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse navbar-ex1-collapse">
+                    <ul class="nav navbar-nav navbar-left">
+                        <li><a href="publicationTrade.php">Les Postes</a></li>
+                    </ul>
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="#">Mon Profile</a></li>
+                        <li><a href="modificationProfile.php">Mon Profile</a></li>
                         <li><a href="#">Logout</a></li>
                     </ul>
                 </div>
@@ -40,73 +43,70 @@ require_once 'inc/connect.php';
         </nav>
 
         <div class="container">
-            <div class="row">
-                <div class="col-md-8 col-md-offset-2">
-                    <div class="col-md-2">
-                        <div class="sidebar-left text-center">
-                            <h4>Bonjour</h4>
-                            <img src="./assets/img/<?=$_SESSION['UserAvatar']; ?>" class="img-responsive img-circle" alt="Image Avatar">
-                            <h4><?=$_SESSION['lastname']; ?></h4>
-                            <h4><?=$_SESSION['firstname']; ?></h4>
-                            <div class="navside">
-                                <ul>
-                                    <li><a href="publier.php">Publier</a></li>
-                                    <li><a href="#">Mes Publications</a></li>
-                                </ul>
-                            </div>
 
-                        </div>
-                    </div>
-
-                    <div class="content">
-                        <!-- En-Tête de Présentation -->
-                        <div class="pageTitle text-center">
-                            <h1>Publier</h1>
-                        </div>
-                    </div>
-
-                    <!-- Début Formulaire -->
-                    <div class="container">
-                        <form id="publier" class="form-horizontal" method="post" enctype="multipart/form-data" role="form" data-toggle="validator">
-
-                            <!-- Titre de la publication -->
-                            <div class="form-group has-feedback">
-                                <div class="col-md-8">
-                                    <input id="title" name="title" type="text" placeholder="Titre de la publication" class="form-control input-md">
-                                </div>
-                            </div>
-                            <!-- Image -->
-                            <div class="form-group has-feedback">
-                                <div class="col-md-8">
-                                    <input id="picture" name="picture" type="file" placeholder="Image à la une" accept="image/*" class="form-control input-md">
-                                </div>
-                            </div>
-                            <br>
-                            <p><strong>OU</strong></p>
-                            <br>
-                            <!-- Url Video -->
-                            <div class="form-group has-feedback">
-                                <div class="col-md-8">
-                                    <input id="UrlVideo" name="UrlVideo" type="text" placeholder="Entrez l'Url d'une video" class="form-control input-md">
-                                </div>
-                            </div>
-                            <!-- Publication -->
-                            <div class="form-group has-feedback">
-                                <div class="col-md-8">
-                                    <textarea class="form-control" rows="15" id="comment" placeholder="Publier"></textarea>
-                                </div>
-                            </div>
-                            <!-- Bouton d'Envoi -->
-                            <div class="form-group has-feedback">
-                                <div class="<col-md-7></col-md-7> col-xs-offset-4">
-                                    <button type="submit" class="btn btn-primary" name="inscription" value="Publier ma demande">Publier</button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
+            <div class="sidebar-left text-center">
+                <h4>bonjour</h4>
+                <img src="./assets/img/<?=$_SESSION['UserAvatar']; ?>" class="img-responsive img-circle" alt="Image Avatar">
+                <h4><?=$_SESSION['lastname']; ?></h4>
+                <h4><?=$_SESSION['firstname']; ?></h4>
+                <div class="navside">
+                    <ul>
+                        <!-- <li><a href="publier.php">Publier</a></li> -->
+                        <li><a href="mesPublications.php">Mes Publications</a></li>
+                    </ul>
                 </div>
             </div>
-            <!-- Fin Formulaire -->
+        </div>
+
+        <div class="content">
+            <!-- En-Tête de Présentation -->
+            <div class="pageTitle text-center">
+                <h1>Publier</h1>
+            </div>
+        </div>
+
+        <!-- Début Formulaire -->
+        <div class="container">
+            <form id="publier" class="form-horizontal" method="post" enctype="multipart/form-data" role="form" data-toggle="validator">
+
+                <!-- Titre de la publication -->
+                <div class="form-group">
+                    <div class="col-md-8">
+                        <input id="title" name="title" type="text" placeholder="Titre de la publication" class="form-control input-md">
+                    </div>
+                </div>
+                <!-- Image -->
+                <div class="form-group">
+                    <div class="col-md-8">
+                        <input id="picture" name="picture" type="file" placeholder="Image à la une" accept="image/*" class="form-control input-md">
+                    </div>
+                </div>
+                <br>
+                <p><strong>OU</strong></p>
+                <br>
+                <!-- Url Video -->
+                <div class="form-group">
+                    <div class="col-md-8">
+                        <input id="UrlVideo" name="UrlVideo" type="text" placeholder="Entrez l'Url d'une video" class="form-control input-md">
+                    </div>
+                </div>
+                <!-- Publication -->
+                <div class="form-group">
+                    <div class="col-md-8">
+                        <textarea class="form-control" rows="15" id="comment" placeholder="Publier"></textarea>
+                    </div>
+                </div>
+                <!-- Bouton d'Envoi -->
+                <div class="form-group">
+                    <div class="<col-md-7></col-md-7> col-xs-offset-4">
+                        <button type="submit" class="btn btn-primary" name="inscription" value="Publier ma demande">Publier</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        </div>
+        </div>
+        <!-- Fin Formulaire -->
         </div>
         </main>
         <!-- inclusion du fichier qui contient tous les script des pages -->

@@ -1,5 +1,8 @@
 <?php
-//session_start();
+session_start();
+
+require_once 'inc/connect.php';
+
 ?><!DOCTYPE html>
 <html lang="fr">
 <head>
