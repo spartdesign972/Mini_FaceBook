@@ -95,10 +95,14 @@ a.navbar-auth-inscription:active {
                 Css pour mesPlublications
 =======================================================*/
 .sidebar-left{
+    display: flex;
+    flex-direction: column;
+    justify-content:space-between;
+    align-items: center;
     float: left;
     width: 25%;
     min-width: 170px;
-    height: 100%;
+    height: 90vh;
     margin-top: 20px;
     margin-right: 20px;
     padding-top: 20px;
@@ -108,8 +112,12 @@ a.navbar-auth-inscription:active {
 .navside ul{
     padding: 0;
 }
+.sidebar-left .infos{
+    flex: 1;
+}
 .navside{
-    margin-top: 25vh;
+    flex: 1;
+    /* margin-top: 25vh; */
 }
 .navside li{
     list-style: none;
