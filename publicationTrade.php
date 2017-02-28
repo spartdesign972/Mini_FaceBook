@@ -2,6 +2,7 @@
 session_start();
 require_once 'inc/connect.php';
 
+
 	$statut = $bdd->prepare('SELECT * FROM statut INNER JOIN users ON statut.Users_idUsers=users.idUser');	
 		$statut->execute();
 		$statut_list = $statut->FetchAll(PDO::FETCH_ASSOC);
@@ -34,7 +35,8 @@ require_once 'inc/connect.php';
                 <div class="collapse navbar-collapse navbar-ex1-collapse">
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href="modificationProfile.php">Mon Profile</a></li>
-                        <li><a href="#">Logout</a></li>
+                        <li><a href="confirmLogout.php">Logout</a></li>
+
                     </ul>
                 </div>
                 <!-- /.navbar-collapse -->
@@ -43,24 +45,12 @@ require_once 'inc/connect.php';
         <!-- Fin du Menu -->
         
         <!-- Page -->
+
         <main class="container">
         <div class="row">
             
             <!-- Sidebar -->
-            <div class="container">
-                <div class="sidebar-left text-center">
-                    <h4>bonjour</h4>
-                    <img src="./assets/img/<?=$_SESSION['UserAvatar']; ?>" class="img-responsive img-circle" alt="Image Avatar">
-                    <h4><?=$_SESSION['lastname']; ?></h4>
-                    <h4><?=$_SESSION['firstname']; ?></h4>
-                    <div class="navside">
-                        <ul>
-                            <li><a href="publier.php">Publier</a></li>
-                            <li><a href="mesPublications.php">Mes Publications</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <!-- Fin Sidebar -->
+            <?php require_once 'inc/sidebar.php'; ?>
                 
                 <!-- contenu -->
 				
@@ -103,8 +93,9 @@ require_once 'inc/connect.php';
 				
 				<!-- Fin contenu -->
         </main>
+       
         <!-- Fin de Page -->
         <!-- inclusion du fichier qui contient tous les script des pages -->
         <?php include 'inc/include-script.php';?>
-    </body>
+    </body>l
 </html>

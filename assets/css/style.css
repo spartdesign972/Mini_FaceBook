@@ -1,5 +1,8 @@
 /*==============================================
-        Css pour la page auth/inscription
+        Css pour les pages
+        auth/inscription
+        publicationTrade
+        subscribe
 ==============================================*/
 
 body {
@@ -30,15 +33,17 @@ body {
     font-size: 8em;
 }
 
-nav.navAuth {
-    margin: 0;
-    background-color: #3b5998;
+nav.navbar-default{
+    background-color: #3b5998 !important;
+    margin-bottom: 0px !important;
 }
 
 nav.navbar-default .navbar-brand {
     color: #fff;
 }
-
+nav.navbar-default .navbar-brand:hover{
+    color: #fff;
+}
 a.navbar-auth-inscription {
     font-size: 1.5em;
     line-height: 50px;
@@ -90,18 +95,29 @@ a.navbar-auth-inscription:active {
                 Css pour mesPlublications
 =======================================================*/
 .sidebar-left{
+    display: flex;
+    flex-direction: column;
+    justify-content:space-between;
+    align-items: center;
     float: left;
     width: 25%;
     min-width: 170px;
-    height: 100%;
-    margin-right: 10px;
+    height: 90vh;
+    margin-top: 20px;
+    margin-right: 20px;
     padding-top: 20px;
+    padding-right: 10px;
+    border-right: 1px solid rgba(0, 0, 0, 0.2);
 }
 .navside ul{
     padding: 0;
 }
+.sidebar-left .infos{
+    flex: 1;
+}
 .navside{
-    margin-top: 10vh;
+    flex: 1;
+    /* margin-top: 25vh; */
 }
 .navside li{
     list-style: none;
@@ -157,7 +173,36 @@ p {
 }
 
 
-.navbar-default .navbar-nav > li > a {
-    color: #fff;
+/*****************************************************
+        PUBLICATION TRADE
+*****************************************************/
+#modification{
+    margin-top: 50px;
+}
+/* ---------------------
+    CONTENUE
+------------------------ */
+#partie1{
+    padding: 12px;
+    background-color: white;
+    margin-bottom: 50px;
+}
 
+h3{
+    text-align: center;
+}
+.pouce{
+    text-align: center;
+    margin-top: 70px
+}
+
+#partie2{
+    padding: 12px;
+    background-color: white;
+    margin-bottom: 50px
+}
+
+.pouce2{
+    text-align: center;
+    margin-top: 70px
 }

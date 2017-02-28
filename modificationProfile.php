@@ -1,5 +1,6 @@
 <?php
 
+
 session_start();
 
 $errors = [];
@@ -51,7 +52,6 @@ if(!empty($_POST)){
     <meta charset="UTF-8">
     <title>Modification Profile</title>
 
-    
     <!-- inclusion du fichier qui contient toutes besoin commune au page, comme le css, etc -->
     <?php include 'inc/include-head.php';?>
 
@@ -83,13 +83,16 @@ if(!empty($_POST)){
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <!-- <li><a href="#">Mon Profile</a></li> -->
-                    <li><a href="#">Logout</a></li>
+                  
+                    <li><a href="confirmLogout.php">Logout</a></li>
+
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
         </div>
     </nav>
     <!-- Fin du Menu -->
+
 
 
     <div class="container">
@@ -179,6 +182,96 @@ if(!empty($_POST)){
             </div>
         </div>
     </div>
+
+    <div class="container">
+    <!-- Sidebar -->
+      <?php require_once 'inc/sidebar.php'; ?>
+
+      <div class="content">
+        <div class="pageTitle text-center">
+            <h1>Modifier votre Profile</h1>
+        </div>
+             <section id="modification">
+
+                 <!-- Choix image -->
+                 <div class="image">
+                    <div class="row">
+                         <div class="col-xs-8">
+                             <div class="form-group">
+                                 <label for="exampleInputFile">Image de profil </label>
+                                 <input type="file" id="exampleInputFile">
+                             </div>
+                         </div>
+                         <div class="col-xs-4">
+                             <i class="fa fa-user-circle-o fa-5x" aria-hidden="true"></i>
+                         </div>
+                    </div>
+                 </div>
+
+                 <!-- Début Formulaire -->
+                 <form id="modification" class="form-horizontal" action="#" method="post" role="form" data-toggle="validator">
+
+                     <!-- Nom -->
+                     <div class="form-group has-feedback">
+                         <div class="col-xs-12">
+                             <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                             <input id="nom" name="nom" required class="form-control" data-error="N'oubliez pas de saisir votre nom" type="text" placeholder="Saisissez votre Nom">
+                             <div class="help-block with-errors"></div>
+                         </div>
+                     </div>
+
+                     <!-- Prénom -->
+                     <div class="form-group has-feedback">
+                         <div class="col-xs-12">
+                             <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                             <input id="prenom" name="prenom" required class="form-control" data-error="N'oubliez pas de saisir votre prenom" type="text" placeholder="Saisissez votre Prénom">
+                             <div class="help-block with-errors"></div>
+                         </div>
+                     </div>
+
+                     <!-- Email -->
+                     <div class="form-group has-feedback">
+                         <div class="col-xs-12">
+                             <div class="input-group">
+                                 <span class="input-group-addon">@</span>
+                                 <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                                 <input id="email" name="email" required class="form-control" data-error="N'oubliez pas de saisir votre email" type="email" placeholder="Saisissez votre Email">
+                                 <div class="help-block with-errors"></div>
+                             </div>
+                         </div>
+                     </div>
+
+                     <!-- Date de Naissance -->
+                     <div class="form-group has-feedback">
+                         <div class="col-xs-12">
+                             <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                             <input id="date de naissance" name="date de naisssance" required class="form-control" data-error="N'oubliez pas de saisir votre email" type="text" placeholder="Date de naissance">
+                             <div class="help-block with-errors"></div>
+                         </div>
+                     </div>
+
+                     <!-- Description -->
+                     <div class="form-group has-feedback">
+                         <div class="col-xs-12">
+                             <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                             <textarea id="description" name="description" rows="5" placeholder="Description" class="form-control"></textarea>
+                             <div class="help-block with-errors"></div>
+                         </div>
+                     </div>
+
+                     <!-- Bouton d'Envoi -->
+                     <div class="col-xs-12">
+                         <div class="form-group has-feedback">
+                             <button type="submit" class="btn btn-primary" name="contact" value="Envoyer ma Demande">Modifier</button>
+                         </div>
+                     </div>
+
+                 </form>
+             </section>
+      </div>
+
+   </div>
+
 
 
    <!-- inclusion du fichier qui contient tous les script des pages -->

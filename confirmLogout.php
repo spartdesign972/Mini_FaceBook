@@ -3,10 +3,15 @@ session_start();
 
 require_once 'inc/connect.php';
 
-	$statut = $bdd->prepare('SELECT StatutTitle FROM statut WHERE 	Users_idUsers=:idUser');
-	$statut->bindValue(':idUser',$_SESSION['idUser'],PDO::PARAM_INT);
-	$statut->execute();
-	$statut_list = $statut->FetchAll(PDO::FETCH_ASSOC);
+// Destruction de la session ?
+	if ((isset($_GET['action'])) && ($_GET['action'] == 'logout'))
+	{
+		$_SESSION = array();
+		session_destroy();
+		session_start();
+		sleep(1);
+		header('location: authUser.php');
+	}
 
 ?><!DOCTYPE html>
 <html lang="fr">
@@ -47,31 +52,20 @@ require_once 'inc/connect.php';
 		</nav>
 		<!-- fin topBar -->
 		<div class="container">
-      
 			<!-- Sidebar -->
 			<?php require_once 'inc/sidebar.php'; ?>
 
 			<div class="content">
-				<div class="pageTitle text-center">
-					<h1>Mes Publications</h1>
-				</div>
-				<hr>
-				<div class="publications">
-				
-				<?php foreach($statut_list as $value):?>
-				
-					<div class="publica">
-						<h3>
-							<?= $value['StatutTitle']; ?>
-							<a href="publier.php"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-							<a href="effacer.php"><i class="fa fa-trash" aria-hidden="true"></i></a>
-						</h3>
+				<div class="jumbotron text-center">
+					<div class="container">
+						<h1>WTF ? <br>ta un truc a faire ? tu veux partir ?</h1>
+						<p><br>Maiiiissss kesss tu nous faiiiiit RESSSSTTTT :(</p>
+						<p>
+						<img src="assets/img/minion_png.png" alt="minion" height="100px"><a class="btn btn-primary btn-lg" href="confirmLogout.php?action=logout">MiliKassos !</a>
+						</p>
 					</div>
-					
-				<?php endforeach; ?>
-					
 				</div>
-        
+			</div>
 		</div>
 
 
