@@ -174,11 +174,7 @@ if(!empty($_POST)){
             </div>
         <?php endif; ?>
 
-        <?php if(!empty($success)): ?>
-            <div class="container">
-                <h4 class="success"><?php echo $success; ?></h4>
-            </div>
-        <?php endif; ?>
+        
         <!-- Choix image -->
         <div class="image">
             <div class="row">
@@ -197,7 +193,12 @@ if(!empty($_POST)){
             </div>
         </div>
 
-                    <!-- Début Formulaire -->
+        <?php if(!empty($success)): ?>
+            <div class="container">
+                <h4 class="success"><?php echo $success; ?></h4>
+            </div>
+        <?php endif; ?>
+    <!-- Début Formulaire -->
     <form id="modification" class="form-horizontal" action="#" method="post" role="form" data-toggle="validator">
 
         <!-- Nom -->
