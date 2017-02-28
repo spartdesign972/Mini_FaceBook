@@ -1,9 +1,11 @@
 <?php
 session_start();
 
+	$_SESSION['idUser'] = 1;
+
 require_once 'inc/connect.php';
 
-	$statut = $bdd->prepare('SELECT StatutTitle FROM statut WHERE 	Users_idUsers=:idUser');
+	$statut = $bdd->prepare('SELECT idStatut, StatutTitle FROM statut WHERE 	Users_idUsers=:idUser');
 	$statut->bindValue(':idUser',$_SESSION['idUser'],PDO::PARAM_INT);
 	$statut->execute();
 	$statut_list = $statut->FetchAll(PDO::FETCH_ASSOC);
@@ -63,7 +65,7 @@ require_once 'inc/connect.php';
 					<div class="publica">
 						<h3>
 							<?= $value['StatutTitle']; ?>
-							<a href="publier.php"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+							<a href="publier.php?id=<?=$value['idStatut']?>"><i class="fa fa-pencil" aria-hidden="true"></i></a>
 							<a href="effacer.php"><i class="fa fa-trash" aria-hidden="true"></i></a>
 						</h3>
 					</div>
