@@ -40,8 +40,8 @@ if(!empty($_POST)){
 				$_SESSION['idUser']      = $user['idUser'];
 				$_SESSION['UserAvatar']  = $user['UserAvatar'];
 
-				
 				header('location: mesPublications.php');
+
 			}else{
 				$passwordMatch = false;
 			}

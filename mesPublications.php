@@ -3,17 +3,6 @@ session_start();
 
 require_once 'inc/connect.php';
 
-//pour tester
-
-$select = $bdd->prepare('SELECT * FROM users WHERE idUser=2');
-	$select->execute();
-	$user = $select->Fetch(PDO::FETCH_ASSOC);
-				// $_SESSION['lastname']    = $user['UserLastName'];			
-				// $_SESSION['firstname']   = $user['UserFirstName'];
-				// $_SESSION['idUser']      = $user['idUser'];
-				// $_SESSION['UserAvatar']  = $user['UserAvatar'];
-				
-//Fin élément de test
 	$statut = $bdd->prepare('SELECT StatutTitle FROM statut WHERE 	Users_idUsers=:idUser');
 	$statut->bindValue(':idUser',$_SESSION['idUser'],PDO::PARAM_INT);
 	$statut->execute();
@@ -58,6 +47,7 @@ $select = $bdd->prepare('SELECT * FROM users WHERE idUser=2');
 		</nav>
 		<!-- fin topBar -->
 		<div class="container">
+      
 			<!-- Sidebar -->
 			<?php require_once 'inc/sidebar.php'; ?>
 
@@ -81,7 +71,7 @@ $select = $bdd->prepare('SELECT * FROM users WHERE idUser=2');
 				<?php endforeach; ?>
 					
 				</div>
-			</div>
+        
 		</div>
 
 

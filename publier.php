@@ -1,9 +1,42 @@
 <?php
 session_start();
-require_once 'inc/connect.php';
-?>
-<!DOCTYPE html>
-<html lang="fr">
+
+$errors = [];
+
+if(!empty($_POST)){
+	
+	foreach($_POST as $key => $value){
+		
+		$post[$key] = $value; 
+		
+	}
+	
+	if(count($errors) == 0){
+		
+		require_once 'inc/connect.php';
+			
+		$select = $bdd->prepare('INSERT INTO statut( StatutTitle, StatutPictureUrl, StatutVideoURL, StatutText, StatutDatePublication, Users_idUsers) VALUES (:StatutTitle, :StatutPictureUrl, :StatutVideoURL, :StatutText, :StatutDatePublication, :Users_idUsers)');
+			
+			$select->bindValue(':StatutTitle',$post['StatutTitle']);
+			
+			$select->bindValue(':StatutPictureUrl',$post['StatutPictureUrl']);
+			
+			$select->bindValue(':StatutVideoURL',$post['StatutVideoURL']);
+			
+			$select->bindValue(':StatutText',$post['StatutText']);
+			
+			$select->bindValue(':StatutDatePublication',$post['StatutDatePublication']);
+			
+			$select->bindValue(':Users_idUsers',$_SESSION['idUser']);
+			
+		$select->execute() or die(print_r($insert->errorInfo()));;;
+		var_dump($select);
+	}//Fin de errors=0
+}//Fin de !empty($_POST)
+?><!DOCTYPE html>
+    <html lang="fr">
+
+
     <head>
         <meta charset="UTF-8">
         <title>Plublication</title>
@@ -73,6 +106,7 @@ require_once 'inc/connect.php';
                         <div class="form-group">
                             <div class="col-xs-12">
                                 <textarea class="form-control" rows="15" id="comment" placeholder="Publier"></textarea>
+
                             </div>
                         </div>
                         <!-- Bouton d'Envoi -->
