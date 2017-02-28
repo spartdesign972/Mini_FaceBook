@@ -1,8 +1,6 @@
 <?php
 session_start();
-
 require_once 'inc/connect.php';
-
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -13,7 +11,6 @@ require_once 'inc/connect.php';
         <?php include 'inc/include-head.php';?>
     </head>
     <body>
-
         <nav class="navbar navbar-default" role="navigation">
             <div class="container">
                 <!-- Brand and toggle get grouped for better mobile display -->
@@ -28,9 +25,9 @@ require_once 'inc/connect.php';
                 </div>
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse navbar-ex1-collapse">
-                <ul class="nav navbar-nav navbar-left">
-                    <li><a href="publicationTrade.php">Les Postes</a></li>
-                </ul>
+                    <ul class="nav navbar-nav navbar-left">
+                        <li><a href="publicationTrade.php">Les Postes</a></li>
+                    </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href="modificationProfile.php">Mon Profile</a></li>
                         <li><a href="#">Logout</a></li>
@@ -39,31 +36,28 @@ require_once 'inc/connect.php';
                 <!-- /.navbar-collapse -->
             </div>
         </nav>
-
         <div class="container">
             <!-- sidebar -->
             <?php require_once 'inc/sidebar.php'; ?>
-
-        <div class="content">
-            <!-- En-Tête de Présentation -->
-            <div class="pageTitle text-center">
-                <h1>Publier</h1>
-            </div>
-
-            <!-- Début Formulaire -->
-
-                <form id="contact" class="form-horizontal" method="post" enctype="multipart/form-data">
-                    <fieldset>
+            
+            <div class="content">
+                <!-- En-Tête de Présentation -->
+                <div class="pageTitle text-center">
+                    <h1>Publier</h1>
+                </div>
+                
+                <!-- Début Formulaire -->
+                    <form id="publier" class="form-horizontal" method="post" enctype="multipart/form-data" role="form" data-toggle="validator">
                         <!-- Titre de la publication -->
                         <div class="form-group">
-                            <div class="col-md-8">
-                                <input id="title" name="title" type="text" placeholder="Titre de la publication" class="form-control input-md">
+                            <div class="col-xs-12">
+                                <input id="title" name="title" type="text" placeholder="Titre de la publication" class="form-control">
                             </div>
                         </div>
                         <!-- Image -->
                         <div class="form-group">
-                            <div class="col-md-8">
-                                <input id="picture" name="picture" type="file" placeholder="Image à la une" accept="image/*" class="form-control input-md">
+                            <div class="col-xs-12">
+                                <input id="picture" name="picture" type="file" placeholder="Image à la une" accept="image/*" class="form-control">
                             </div>
                         </div>
                         <br>
@@ -71,30 +65,29 @@ require_once 'inc/connect.php';
                         <br>
                         <!-- Url Video -->
                         <div class="form-group">
-                            <div class="col-md-8">
-                                <input id="UrlVideo" name="UrlVideo" type="text" placeholder="Entrez l'Url d'une video" class="form-control input-md">
+                            <div class="col-xs-12">
+                                <input id="UrlVideo" name="UrlVideo" type="text" placeholder="Entrez l'Url d'une video" class="form-control">
                             </div>
                         </div>
                         <!-- Publication -->
                         <div class="form-group">
-                            <div class="col-md-8">
+                            <div class="col-xs-12">
                                 <textarea class="form-control" rows="15" id="comment" placeholder="Publier"></textarea>
                             </div>
                         </div>
                         <!-- Bouton d'Envoi -->
                         <div class="form-group">
-                            <div class="col-md-8 text-center">
-                                <button type="submit" class="btn btn-primary" name="inscription" value="Ajouter le Contact">Publier</button>
+                            <div class="col-xs-12 text-center">
+                                <button type="submit" class="btn btn-primary" name="inscription" value="Publier ma demande">Publier</button>
                             </div>
                         </div>
-                    </fieldset>
-                </form>
+                    </form>
             </div>
-            <!-- /.col-sm-6 -->
-            <!-- Fin Formulaire -->
         </div>
-        </main>
-        <!-- inclusion du fichier qui contient tous les script des pages -->
-        <?php include 'inc/include-script.php';?>
-    </body>
+        <!-- Fin Formulaire -->
+    </div>
+    </main>
+    <!-- inclusion du fichier qui contient tous les script des pages -->
+    <?php include 'inc/include-script.php';?>
+</body>
 </html>
