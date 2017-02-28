@@ -10,7 +10,7 @@ require_once 'inc/connect.php';
 		session_destroy();
 		session_start();
 		sleep(1);
-		header('location: authUser.php');
+		header('location: auth_inscription.php');
 	}
 
 ?><!DOCTYPE html>
