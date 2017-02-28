@@ -51,7 +51,7 @@ $select = $bdd->prepare('SELECT * FROM users WHERE idUser=2');
                 </ul>
 				<ul class="nav navbar-nav navbar-right">
 					<li><a href="modificationProfile.php">Mon Profile</a></li>
-					<li><a href="#">Logout</a></li>
+					<li><a href="confirmLogout.php">Logout</a></li>
 				</ul>
 				</div><!-- /.navbar-collapse -->
 			</div>

@@ -41,7 +41,7 @@ require_once 'inc/connect.php';
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <!-- <li><a href="#">Mon Profile</a></li> -->
-                    <li><a href="#">Logout</a></li>
+                    <li><a href="confirmLogout.php">Logout</a></li>
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
