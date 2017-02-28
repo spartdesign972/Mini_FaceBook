@@ -73,14 +73,8 @@ require_once 'inc/connect.php';
                             <h3><?= $value['StatutTitle']; ?></h3>
                             <p><?= $value['StatutText']; ?></p>
 							
-							<?php
-								$select = $bdd->prepare('SELECT idStatut FROM statut INNER JOIN likestatus ON statut.idStatut=likestatus.Statut_idStatut WHERE idStatut=:idStatut');
-									$select->bindValue(':idStatut',$value['idStatut']);
-									$select->execute()or die(print_r($select->errorInfo()));
-								
-								$like = $select->FetchAll(PDO::FETCH_ASSOC);
-							?>
-							<div class="pouce">
+					              							
+<div class="pouce">
 								
 								<?php
 									$select = $bdd->prepare('SELECT idStatut FROM statut INNER JOIN likestatus ON statut.idStatut=likestatus.Statut_idStatut WHERE idStatut=:idStatut');
