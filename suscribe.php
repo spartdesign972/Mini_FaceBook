@@ -56,9 +56,9 @@ if(!empty($_POST))
      //Vérification que l'email existe déjà
     $query = $bdd->query('SELECT COUNT(*) AS email FROM users WHERE UserEmail ="'.$post['UserEmail'].'"'); 
     $query->execute();
-	$mail = $query->fetch(PDO::FETCH_ASSOC);
-		var_dump($mail);
-    if ($mail['email']=='1'){
+	$mail = $query->fetchColumn();
+
+    if ($mail != false){
      $errors[] = 'L\'email existe déjà' ;
     }
 
