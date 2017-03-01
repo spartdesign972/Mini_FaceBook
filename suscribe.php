@@ -40,7 +40,6 @@ if(!empty($_POST))
 		}
 		*/
 		$d = explode('/',$post['UserBirthday']);
-		var_dump($d);
 		$d = $d[2].'-'.$d[1].'-'.$d[0];
 		
 		
@@ -146,13 +145,14 @@ if(!empty($_POST))
 						$_SESSION['idUser']      = $user['idUser'];
 						$_SESSION['UserAvatar']  = $user['UserAvatar'];
 
+						header('location: mesPublications.php');
+						
 				}else{
 					//Erreur de dev
 					var_dump($res->errorInfo());
 					//die; // alias de exit(); => die('hello world')
 				}
 
-				header('location: mesPublications.php');
 
 		}else{
 			
