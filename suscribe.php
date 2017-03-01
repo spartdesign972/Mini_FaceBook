@@ -3,7 +3,7 @@ require_once 'inc/connect.php';
 //session_start();
 
 #définition de quelques variabl pour gerer les images
-$maxSize = (1024 * 1000) * 3; // Taille maximum du fichier
+$maxSize = (1024 * 1000) * 2; // Taille maximum du fichier
 $uploadDir = 'uploads/'; // Répertoire d'upload
 $mimeTypeAvailable = ['image/jpg', 'image/jpeg', 'image/pjpeg', 'image/png', 'image/gif'];
 $errors = [];	
