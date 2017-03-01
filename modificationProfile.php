@@ -33,11 +33,6 @@ if(!empty($_POST)){
         $errors[] = 'La description doit comporter au moins 20 caractères, soyez plus bavard :)';
     }
 
-    if(strlen($post['UserPassword'])<5)
-    {
-        $errors[] = 'Le mot de passe doit faire au minimum 5 caractères';
-    }
-
     if(!filter_var($post['UserEmail'],FILTER_VALIDATE_EMAIL))
     {
         $errors[] = 'Il y a une erreur au niveau du mail...';
@@ -47,6 +42,15 @@ if(!empty($_POST)){
         $errors[] = 'Veuillez entrer votre MDP';
     }else{
         $passwordHash = password_hash($post['UserPassword'], PASSWORD_DEFAULT);
+    }
+
+    if(strlen($post['UserPassword'])<5)
+    {
+        $errors[] = 'Le mot de passe doit faire au minimum 5 caractères';
+    }
+
+    if (!preg_match("/\d{4}\-\d{2}-\d{2}/", $post['UserBirthday'])) {
+        $errors[] = 'La date doit etre au format Année-mois-jours';
     }
 
     if(isset($_FILES['UserAvatar']) && $_FILES['UserAvatar']['error'] === 0){
@@ -235,7 +239,7 @@ if(!empty($_POST)){
         <div class="form-group has-feedback">
             <div class="col-xs-12">
                 <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
-                <input type="password" class="form-control" name="UserPassword" id="UserPassword" data-error="N'oubliez pas de saisir votre mot de passe">
+                <input type="password" class="form-control" name="UserPassword" id="UserPassword" data-error="N'oubliez pas de saisir votre mot de passe" placeholder="votre mot de passe">
                 <div class="help-block with-errors"></div>
             </div>
         </div>
@@ -254,7 +258,7 @@ if(!empty($_POST)){
         <div class="form-group has-feedback">
             <div class="col-xs-12">
                 <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
-                <textarea id="description" name="UserDescription" rows="5" value="<?=$user['UserDescription'];?>" class="form-control"></textarea>
+                <textarea id="description" name="UserDescription" rows="5" value="<?=$user['UserDescription'];?>" class="form-control"><?=$user['UserDescription'];?></textarea>
                 <div class="help-block with-errors"></div>
             </div>
         </div>
