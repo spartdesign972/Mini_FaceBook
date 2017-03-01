@@ -46,6 +46,14 @@ if(!empty($_POST))
 	{
 		$errors[] = 'Il y a une erreur au niveau du mail...';
 	}
+    
+     //Vérification que l'email existe déjà
+    $query = $bdd->query('SELECT COUNT(*) AS email FROM users WHERE UserEmail ="'.$post['UserEmail'].'"'); 
+    $mail = $query->fetch(PDO::FETCH_ASSOC); 
+    if ($mail['UserEmail']>=1){
+     $errors[] = 'L\'email exite déjà' ;
+    
+    }
 
 	if(strlen($post['UserPassword'])<5){
 		$errors[] = 'Veuillez entrer un mot de passe de plus de 5 caracteres ';
