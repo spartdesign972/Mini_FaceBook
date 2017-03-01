@@ -92,7 +92,7 @@ require_once 'inc/connect.php';
 				    <h4 class="modal-title" id="myModalLabel">confirmation de suppression</h4>
 				  </div>
 				  <div class="modal-body">
-				    ...
+				    <h1>test</h1>
 				  </div>
 				  <div class="modal-footer">
 				    <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
