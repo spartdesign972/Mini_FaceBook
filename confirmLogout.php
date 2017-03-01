@@ -41,10 +41,10 @@ require_once 'inc/connect.php';
 			<!-- Collect the nav links, forms, and other content for toggling -->
 			<div class="collapse navbar-collapse navbar-ex1-collapse">
 				<ul class="nav navbar-nav navbar-left">
-                    <li><a href="publicationTrade.php">Les Postes</a></li>
+                    <li><a href="publicationTrade.php">Les Posts</a></li>
                 </ul>
 				<ul class="nav navbar-nav navbar-right">
-					<li><a href="modificationProfile.php">Mon Profile</a></li>
+					<li><a href="modificationProfile.php">Mon Profil</a></li>
 					<li><a href="confirmLogout.php">Logout</a></li>
 				</ul>
 				</div><!-- /.navbar-collapse -->

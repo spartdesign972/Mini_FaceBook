@@ -86,7 +86,10 @@ require_once 'inc/connect.php';
                                     echo count($like).'&nbsp;';
                                 }
                             ?>
-                            <i class="fa fa-thumbs-up fa-3x" aria-hidden="true"></i>
+                            <a href="confirmLike.php?id=<?php echo $value['idStatut'];?>">
+                                <i class="fa fa-thumbs-up fa-3x" aria-hidden="true"></i>
+                            </a>
+                            
                             
                         </div>
                     </section>
