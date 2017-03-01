@@ -109,7 +109,7 @@ if(!empty($_POST))
 			
 			$insert->bindValue(':UserPassword',$passwordHash);
 
-			$insert->bindValue(':UserBirthday',$d['UserBirthday']);
+			$insert->bindValue(':UserBirthday',$post['UserBirthday']);
 
 			$insert->bindValue(':UserGender',$post['UserGender']);
 
