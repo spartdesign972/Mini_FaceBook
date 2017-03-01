@@ -11,15 +11,64 @@ if(!empty($_POST)){
 		$post[$key] = $value; 
 		
 	}
+    if(strlen($post['StatutTitle'])<1) 
+    {
+        $errors[] = 'Rentrez un titre pour votre statut';
+    }
+
+    if(strlen($post['StatutText']) < 10)
+    {
+        $errors[] = 'Votre statut doit comporter au moins 10 caratères';
+    }
+    /*
+    if (empty($post['StatutVideoURL'])  || !filter_var($post['StatutVideoURL'], FILTER_VALIDATE_URL))
+    {
+        $errors[] = 'L\'url de la vidéo n\'est pas valide';
+    }
+    */
+    var_dump($post['StatutVideoURL']);
+    if(isset($_FILES['StatutPictureUrl']) && $_FILES['StatutPictureUrl']['error'] === 0)
+    {
+
+        $finfo = new finfo(); //déclaration d'un objet de type finfo
+        $mimeType = $finfo->file($_FILES['StatutPictureUrl']['tmp_name'], FILEINFO_MIME_TYPE); // récuperation du type mime du fichier, cette façon de faire est la plus sécure
+
+        $extension = pathinfo($_FILES['StatutPictureUrl']['name'], PATHINFO_EXTENSION);//Récuperer l'extension du ficher grace au path info
+
+        if(in_array($mimeType, $mimeTypeAvailable))
+        {
+
+            if($_FILES['StatutPictureUrl']['size'] <= $maxSize){
+
+                if(!is_dir($uploadDir)){
+                    mkdir($uploadDir, 0755);//création du dossier via le CHmod, permet d'avoir les droit d'ecriture
+                }
+
+                $newPictureName = uniqid('statutImg_').'.'.$extension;//changeent du nom du fichier avec le prefixe avatar et lui donnant un id unique. Adie les remplacement
+
+                if(!move_uploaded_file($_FILES['StatutPictureUrl']['tmp_name'], $uploadDir.$newPictureName)){
+                    $errors[] = 'Erreur lors de l\'upload de la photo';
+                }
+            }
+
+            else 
+            {
+                $errors[] = 'La taille du fichier excède 2 Mo';
+            }
+
+        }
+    }
 	
-	if(count($errors) == 0){
+	if(count($errors) === 0){
 		
 		if($post['submit'] == 'Publier'){
 		
 		require_once 'inc/connect.php';
 			
-		$select = $bdd->prepare('INSERT INTO statut( StatutTitle, StatutPictureUrl, StatutVideoURL, StatutText, StatutDatePublication, Users_idUsers) VALUES (:StatutTitle, :StatutPictureUrl, :StatutVideoURL, :StatutText, :StatutDatePublication, :Users_idUsers)');
+		$select = $bdd->prepare('INSERT INTO statut( StatutTitle, StatutPictureUrl, StatutVideoURL, StatutText, StatutDatePublication, Users_idUsers) VALUES (:StatutTitle, :StatutPictureUrl, :StatutVideoURL, :StatutText, now(), :Users_idUsers)');
 			
+            #now() permet de récuperer la date actuelle  http://stackoverflow.com/questions/9541029/insert-current-date-in-datetime-format-mysql
+
 			$select->bindValue(':StatutTitle',$post['StatutTitle']);
 			
 			$select->bindValue(':StatutPictureUrl',$post['StatutPictureUrl']);
@@ -28,7 +77,7 @@ if(!empty($_POST)){
 			
 			$select->bindValue(':StatutText',$post['StatutText']);
 			
-			$select->bindValue(':StatutDatePublication',$post['StatutDatePublication']);
+			//$select->bindValue(':StatutDatePublication',$post['StatutDatePublication']); // inutile...
 			
 			$select->bindValue(':Users_idUsers',$_SESSION['idUser']);
 			
