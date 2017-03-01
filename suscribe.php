@@ -36,11 +36,13 @@ if(!empty($_POST))
 	
 	if(!empty($post['UserBirthday']))
 	{
+
 		if (!preg_match("/\d{4}\-\d{2}-\d{2}/", $post['UserBirthday'])) {
 		    $errors[] = 'La date doit etre au format Année-mois-jours';
 		}
 	}else{
 		$errors[] = 'veuillez entrer une date sous la forme année-mois-jour';
+
 	}
 	
 	if(!filter_var($post['UserEmail'],FILTER_VALIDATE_EMAIL))
@@ -107,7 +109,7 @@ if(!empty($_POST))
 			
 			$insert->bindValue(':UserPassword',$passwordHash);
 
-			$insert->bindValue(':UserBirthday',$post['UserBirthday']);
+			$insert->bindValue(':UserBirthday',$d['UserBirthday']);
 
 			$insert->bindValue(':UserGender',$post['UserGender']);
 
