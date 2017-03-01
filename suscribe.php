@@ -37,10 +37,12 @@ if(!empty($_POST))
 	
 	if(strlen($post['UserBirthday'])<10)
 	{
-		$d = explode('/',$post['UserBirthday']);
-		$d['UserBirthday'] = $d[2].'-'.$d[1].'-'.$d[0];
 		
 		$errors[] = 'La date doit être au format 05/02/1956';
+	}
+	else{
+		$d = explode('/',$post['UserBirthday']);
+		$d=$d[2].'-'.$d[1].'-'.$d[0];
 	}
 	
 	if(!filter_var($post['UserEmail'],FILTER_VALIDATE_EMAIL))
