@@ -149,9 +149,6 @@ hr{
     border-radius: 15px;
     overflow: hidden;
 }
-.publica a{
-    margin-left: 15px;
-}
 
 /*============= fin css mesPublications ==============*/
 
@@ -190,9 +187,12 @@ p {
     CONTENUE
 ------------------------ */
 #partie1{
-    padding: 12px;
-    background-color: white;
-    margin-bottom: 50px;
+    margin-top: 20px;
+    margin-left: 10px;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 15px;
+    overflow: hidden;
 }
 
 h3{
@@ -200,5 +200,5 @@ h3{
 }
 .pouce{
     text-align: center;
-    margin-top: 30px
+    margin-top: 10px
 }

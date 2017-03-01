@@ -1,12 +1,9 @@
 <?php
 session_start();
 require_once 'inc/connect.php';
-
-
-	$statut = $bdd->prepare('SELECT * FROM statut INNER JOIN users ON statut.Users_idUsers=users.idUser');	
-		$statut->execute();
-		$statut_list = $statut->FetchAll(PDO::FETCH_ASSOC);
-
+        $statut = $bdd->prepare('SELECT * FROM statut INNER JOIN users ON statut.Users_idUsers=users.idUser');
+        $statut->execute();
+        $statut_list = $statut->FetchAll(PDO::FETCH_ASSOC);
 ?><!DOCTYPE html>
 <html lang="fr">
     <head>
@@ -36,7 +33,6 @@ require_once 'inc/connect.php';
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href="modificationProfile.php">Mon Profile</a></li>
                         <li><a href="confirmLogout.php">Logout</a></li>
-
                     </ul>
                 </div>
                 <!-- /.navbar-collapse -->
@@ -45,57 +41,49 @@ require_once 'inc/connect.php';
         <!-- Fin du Menu -->
         
         <!-- Page -->
-
         <main class="container">
         <div class="row">
             
             <!-- Sidebar -->
             <?php require_once 'inc/sidebar.php'; ?>
-                
-                <!-- contenu -->
-				
-				<?php foreach($statut_list as $value):?>
-				
-                <div class="content">
-                    <div class="col-sm-12">
-                        <section id="partie1">
-                            <p><i class="fa fa-user fa-3x" aria-hidden="true"> Publier par: <?= $value['UserLastName']; ?> <?= $value['UserFirstName']; ?></i></p>
-                            <h3><?= $value['StatutTitle']; ?></h3>
-                            <p><?= $value['StatutText']; ?></p>
-							
-					              							
-<div class="pouce">
-								
-								<?php
-									$select = $bdd->prepare('SELECT idStatut FROM statut INNER JOIN likestatus ON statut.idStatut=likestatus.Statut_idStatut WHERE idStatut=:idStatut');
-										$select->bindValue(':idStatut',$value['idStatut']);
-										$select->execute()or die(print_r($select->errorInfo()));
-									
-									$like = $select->FetchAll(PDO::FETCH_ASSOC);
-									
-									if(count($like) > 0){
-		
-										echo count($like).'&nbsp;';
-										
-									}
-								
-								?>
-																
-								<i class="fa fa-thumbs-up fa-3x" aria-hidden="true"></i>
-							
-							</div>
-                        </section>
-                    </div>
-
+            
+            <!-- contenu -->
+            <div class="content">
+                <div class="col-sm-12">
+                    
+                    <?php foreach($statut_list as $value):?>
+                    
+                    <section id="partie1">
+                        <p><i class="fa fa-user fa-3x" aria-hidden="true"> Publier par: <?= $value['UserLastName']; ?> <?= $value['UserFirstName']; ?></i></p>
+                        <h3><?= $value['StatutTitle']; ?></h3>
+                        <p><?= $value['StatutText']; ?></p>
+                        
+                        <div class="pouce">
+                            
+                            <?php
+                                $select = $bdd->prepare('SELECT idStatut FROM statut INNER JOIN likestatus ON statut.idStatut=likestatus.Statut_idStatut WHERE idStatut=:idStatut');
+                                    $select->bindValue(':idStatut',$value['idStatut']);
+                                    $select->execute()or die(print_r($select->errorInfo()));
+                                
+                                $like = $select->FetchAll(PDO::FETCH_ASSOC);
+                                
+                                if(count($like) > 0){
+                                    echo count($like).'&nbsp;';
+                                }
+                            ?>
+                            <i class="fa fa-thumbs-up fa-3x" aria-hidden="true"></i>
+                            
+                        </div>
+                    </section>
+            <?php endforeach; ?>
                 </div>
-				
-				<?php endforeach; ?>
-				
-				<!-- Fin contenu -->
-        </main>
-       
-        <!-- Fin de Page -->
-        <!-- inclusion du fichier qui contient tous les script des pages -->
-        <?php include 'inc/include-script.php';?>
-    </body>l
-</html>
+            </div>
+            
+            <!-- Fin contenu -->
+            </main>
+            
+            <!-- Fin de Page -->
+            <!-- inclusion du fichier qui contient tous les script des pages -->
+            <?php include 'inc/include-script.php';?>
+        </body>l
+    </html>

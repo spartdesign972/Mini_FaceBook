@@ -1,6 +1,8 @@
 <?php
+session_start();
+
 require_once 'inc/connect.php';
-//session_start();
+
 
 #définition de quelques variabl pour gerer les images
 $maxSize = (1024 * 1000) * 2; // Taille maximum du fichier
@@ -8,6 +10,7 @@ $uploadDir = 'uploads/'; // Répertoire d'upload
 $mimeTypeAvailable = ['image/jpg', 'image/jpeg', 'image/pjpeg', 'image/png', 'image/gif'];
 $errors = [];	
 date_default_timezone_set('America/Martinique');
+
 #verification de l'existance de l'envoi des données puis vérificatio de celle ci
 if(!empty($_POST))
 {
@@ -15,25 +18,20 @@ if(!empty($_POST))
 	{
 		$post[$key] = (trim(strip_tags($value))); //netoyage des données, on enlève les balise HTML et autres ainsi que les espaces en début et fin de chaine
 	}
-	if(strlen($post['UserLastName'])<5 || strlen($post['UserLastName'])>50)
+	if(strlen($post['UserLastName'])<3 || strlen($post['UserLastName'])>50)
 	{
-		$errors[] = 'Votre nom doit faire entre  5 et 50 caratères';
+		$errors[] = 'Votre nom doit faire entre 3 et 50 caratères';
 	}
 
-	if(strlen($post['UserFirstName'])<5 || strlen($post['UserFirstName'])>50)
+	if(strlen($post['UserFirstName'])<3 || strlen($post['UserFirstName'])>50)
 	{
-		$errors[] = 'Votre prénom doit faire entre  5 et 50 caratères';
+		$errors[] = 'Votre prénom doit faire entre  3 et 50 caratères';
 	}
 
 	if(strlen($post['UserDescription']) < 20){
 		$errors[] = 'La description doit comporter au moins 20 caractères, soyez plus bavard :)';
 	}
 
-	if(strlen($post['UserPassword'])<5)
-	{
-		$errors[] = 'Le mot de passe doit faire au minimum 5 caractères';
-	}
-	
 	if(!empty($post['UserBirthday']))
 	{
 
@@ -42,7 +40,6 @@ if(!empty($_POST))
 		}
 	}else{
 		$errors[] = 'veuillez entrer une date sous la forme année-mois-jour';
-
 	}
 	
 	if(!filter_var($post['UserEmail'],FILTER_VALIDATE_EMAIL))
@@ -50,8 +47,8 @@ if(!empty($_POST))
 		$errors[] = 'Il y a une erreur au niveau du mail...';
 	}
 
-	if(empty($post['UserPassword'])){
-		$errors[] = 'Veuillez entrer votre MDP';
+	if(strlen($post['UserPassword'])<5){
+		$errors[] = 'Veuillez entrer un mot de passe de plus de 5 caracteres ';
 	}else{
 		$passwordHash = password_hash($post['UserPassword'], PASSWORD_DEFAULT);
 		
@@ -119,7 +116,34 @@ if(!empty($_POST))
 
 			$insert->bindValue(':UserSubscribeDate',$post['UserSubscribeDate']);
 		
-		$insert->execute() or die(print_r($insert->errorInfo()));;
+		if($insert->execute()){
+
+				$res = $bdd->prepare('SELECT UserLastName, UserFirstName, UserEmail, UserPassword, UserAvatar, idUser  FROM users WHERE UserEmail = :dataEmail');
+		
+				$res->bindValue(':dataEmail', $post['UserEmail'], PDO::PARAM_STR);
+
+				if($res->execute()){
+					$user = $res->fetch(PDO::FETCH_ASSOC);
+
+						$_SESSION['isConnected'] = true;
+						$_SESSION['lastname']    = $user['UserLastName'];
+						$_SESSION['firstname']   = $user['UserFirstName'];
+						$_SESSION['idUser']      = $user['idUser'];
+						$_SESSION['UserAvatar']  = $user['UserAvatar'];
+
+				}else{
+					//Erreur de dev
+					var_dump($res->errorInfo());
+					//die; // alias de exit(); => die('hello world')
+				}
+
+				header('location: mesPublications.php');
+
+		}else{
+			
+			var_dump($res->errorInfo());
+			//die; // alias de exit(); => die('hello world')
+		}
 		
 	}else{
 		$errorsText = implode('<br>', $errors);

@@ -1,9 +1,8 @@
 <?php
 session_start();
 
-	$_SESSION['idUser'] = 1;
-
 require_once 'inc/connect.php';
+
 
 	$statut = $bdd->prepare('SELECT idStatut, StatutTitle FROM statut WHERE 	Users_idUsers=:idUser');
 	$statut->bindValue(':idUser',$_SESSION['idUser'],PDO::PARAM_INT);
