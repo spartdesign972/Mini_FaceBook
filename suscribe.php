@@ -15,7 +15,7 @@ if(!empty($_POST))
 	{
 		$post[$key] = (trim(strip_tags($value))); //netoyage des données, on enlève les balise HTML et autres ainsi que les espaces en début et fin de chaine
 	}
-
+	var_dump($post);
 	if(strlen($post['UserLastName'])<5 || strlen($post['UserLastName'])>50)
 	{
 		$errors[] = 'Votre nom doit faire entre  5 et 50 caratères';
@@ -34,7 +34,15 @@ if(!empty($_POST))
 	{
 		$errors[] = 'Le mot de passe doit faire au minimum 5 caractères';
 	}
-
+	
+	if(strlen($post['UserBirthday'])<10)
+	{
+		$d = explode('/',$post['UserBirthday']);
+		$post['UserBirthday'] = $d[2].'-'.$d[1].'-'.$d[0];
+		
+		$errors[] = 'La date doit être au format 05/02/1956';
+	}
+	
 	if(!filter_var($post['UserEmail'],FILTER_VALIDATE_EMAIL))
 	{
 		$errors[] = 'Il y a une erreur au niveau du mail...';
@@ -44,8 +52,9 @@ if(!empty($_POST))
 		$errors[] = 'Veuillez entrer votre MDP';
 	}else{
 		$passwordHash = password_hash($post['UserPassword'], PASSWORD_DEFAULT);
+		
 	}
-
+		var_dump($passwordHash);
 	if(!isset($post['UserGender']))
 	{
 		$errors[] = 'Précisez si vous êtes une femme ou un homme...';
@@ -87,7 +96,7 @@ if(!empty($_POST))
 	else {
 		$errors[] = 'Aucune photo sélectionnée';
 	}
-
+	
 	if(count($errors) === 0){
 		
 		$insert = $bdd->prepare('INSERT INTO users( UserLastName, UserFirstName, UserEmail, UserPassword, UserBirthday, UserGender, UserAvatar, UserDescription, UserSubscribeDate) VALUES (:UserLastName, :UserFirstName, :UserEmail, :UserPassword, :UserBirthday, :UserGender, :UserAvatar, :UserDescription, :UserSubscribeDate)');
