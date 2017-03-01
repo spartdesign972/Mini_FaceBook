@@ -1,6 +1,8 @@
 <?php
+session_start();
+
 require_once 'inc/connect.php';
-//session_start();
+
 
 #définition de quelques variabl pour gerer les images
 $maxSize = (1024 * 1000) * 2; // Taille maximum du fichier
@@ -119,8 +121,17 @@ if(!empty($_POST))
 
 			$insert->bindValue(':UserSubscribeDate',$post['UserSubscribeDate']);
 		
-		$insert->execute() or die(print_r($insert->errorInfo()));;
-		
+		if($insert->execute()) { 
+            session_start();
+                $_SESSION['isConnected'] = true;
+                $_SESSION['lastname']    = $user['UserLastName'];
+                $_SESSION['firstname']   = $user['UserFirstName'];
+                $_SESSION['idUser']      = $user['idUser'];
+                $_SESSION['UserAvatar']  = $user['UserAvatar'];
+        
+        
+        header("location:auth_inscription.php");
+        } var_dump($rinsert->errorInfo());
 	}else{
 		$errorsText = implode('<br>', $errors);
 	}//Fin de errors=0

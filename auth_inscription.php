@@ -11,6 +11,7 @@ $emailNotExist = true;
 
 
 if(!empty($_POST)){
+    
 
 	foreach($_POST as $key => $value){
 		$post[$key] = trim(strip_tags($value));
@@ -59,42 +60,46 @@ if(!empty($_POST)){
 		$errorsText = implode('<br>', $errors);	
 	}
 }
-?><!DOCTYPE html>
-<html lang="fr">
-	<head>
-		<meta charset="UTF-8">
-		<title>Auth-inscription</title>
+?>
+    <!DOCTYPE html>
+    <html lang="fr">
 
-		<!-- inclusion du fichier qui contient toutes besoin commune au page, comme le css, etc -->
-		<?php include 'inc/include-head.php';?>
+    <head>
+        <meta charset="UTF-8">
+        <title>Auth-inscription</title>
 
-		<link href="https://fonts.googleapis.com/css?family=Oleo+Script|Roboto" rel="stylesheet"> 
+        <!-- inclusion du fichier qui contient toutes besoin commune au page, comme le css, etc -->
+        <?php include 'inc/include-head.php';?>
 
-	</head>
-	<body>
-		<!-- La topbar de nav -->
-		<nav class="navbar navbar-default text-center" role="navigation">
-			<div class="container">
-				<a class="navbar-auth-inscription" href="#">WF3 Mini FaceBook</a>
-				</div><!-- /.navbar-collapse -->
-			</div>
-		</nav>
-		<!-- fin topBar -->
-			<div class="text-center top">
-				<div class="container">
-					<h1 class="title">Le Meilleur des reseaux sociaux</h1>
-				</div>
-			</div>
+            <link href="https://fonts.googleapis.com/css?family=Oleo+Script|Roboto" rel="stylesheet">
 
-			<?php if(!empty($errors)): ?>
-			<div class="container">
-				<div class="alert alert-danger authAlert">
-				  <h3><?php echo $errorsText ?></h3>
-				</div>
-			</div>
-			<?php endif; ?>
+    </head>
 
-			<?php 
+    <body>
+        <!-- La topbar de nav -->
+        <nav class="navbar navbar-default text-center" role="navigation">
+            <div class="container">
+                <a class="navbar-auth-inscription" href="#">WF3 Mini FaceBook</a>
+            </div>
+            <!-- /.navbar-collapse -->
+            </div>
+        </nav>
+        <!-- fin topBar -->
+        <div class="text-center top">
+            <div class="container">
+                <h1 class="title">Le Meilleur des reseaux sociaux</h1>
+            </div>
+        </div>
+
+        <?php if(!empty($errors)): ?>
+            <div class="container">
+                <div class="alert alert-danger authAlert">
+                    <h3><?php echo $errorsText ?></h3>
+                </div>
+            </div>
+            <?php endif; ?>
+
+                <?php 
 			if(!$passwordMatch || !$emailNotExist){
 				echo '<div class="container text-center">';
 				echo '<div class="alert alert-danger authAlert">';
@@ -106,32 +111,33 @@ if(!empty($_POST)){
 			}	
 			?>
 
-			<div class="container formAuth">	
-				<form action="" method="POST" class="form-horizontal text-center" role="form">
-						<h2>Déja membre ? merci de vous authentifier</h2>
-						<div class="form-group col-xs-12">
-							<input type="email" name="email" id="inputEmail" class="form-control" value="" required="required" placeholder="Email">
-						</div>
+                    <div class="container formAuth">
+                        <form action="" method="POST" class="form-horizontal text-center" role="form">
+                            <h2>Déja membre ? merci de vous authentifier</h2>
+                            <div class="form-group col-xs-12">
+                                <input type="email" name="email" id="inputEmail" class="form-control" value="" required="required" placeholder="Email">
+                            </div>
 
-						<div class="form-group col-xs-12">
-							<input type="password" name="password" id="inputPassword" class="form-control" value="" required="required" placeholder="Mot de passe">
-						</div>
-				
-						<div class="form-group">
-							<div class="col-xs-12 text-center">
-								<button type="submit" class="btn btn-primary">Submit</button>
-							</div>
-						</div>
-				</form>
-			</div>
+                            <div class="form-group col-xs-12">
+                                <input type="password" name="password" id="inputPassword" class="form-control" value="" required="required" placeholder="Mot de passe">
+                            </div>
 
-			<div class="container text-center inscrip">
-				<h2>Pas encore membre ? t'es fou ou quoi ? inscrit toi vite !</h2>
-				<a href="suscribe.php" class="btn btn-default">S'inscrire</a>
-			</div>
+                            <div class="form-group">
+                                <div class="col-xs-12 text-center">
+                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="container text-center inscrip">
+                        <h2>Pas encore membre ? t'es fou ou quoi ? inscrit toi vite !</h2>
+                        <a href="suscribe.php" class="btn btn-default">S'inscrire</a>
+                    </div>
 
 
-		<!-- inclusion du fichier qui contient tous les script des pages -->
-	<?php include 'inc/include-script.php';?>
-	</body>
-</html>
+                    <!-- inclusion du fichier qui contient tous les script des pages -->
+                    <?php include 'inc/include-script.php';?>
+    </body>
+
+    </html>

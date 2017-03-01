@@ -1,11 +1,13 @@
 <?php
 session_start();
+$_SESSION['idUser'] = '';
 
 require_once 'inc/connect.php';
 
+$post= [];
 $errors = [];
 $success = '';
-require_once 'inc/connect.php';
+
 
 	$user = $bdd->prepare('SELECT * FROM users WHERE idUser=:idUser');
 	$user->bindValue(':idUser',$_SESSION['idUser'],PDO::PARAM_INT);
@@ -113,181 +115,183 @@ if(!empty($_POST)){
         $errorsText = implode('<br>', $errors);
     }//Fin de errors=0
 }//Fin de !empty($_POST)
-	
-?><!DOCTYPE html>
-<html lang="fr">
+	var_dump($_SESSION['idUser']);
+?>
+    <!DOCTYPE html>
+    <html lang="fr">
 
-<head>
-    <meta charset="UTF-8">
-    <title>Modification de votre Profil</title>
+    <head>
+        <meta charset="UTF-8">
+        <title>Modification de votre Profil</title>
 
-    <!-- inclusion du fichier qui contient toutes besoin commune au page, comme le css, etc -->
-    <?php include 'inc/include-head.php';?>
+        <!-- inclusion du fichier qui contient toutes besoin commune au page, comme le css, etc -->
+        <?php include 'inc/include-head.php';?>
 
-    <link rel="stylesheet" type="text/css" href="assets/css/modification.css">
-    
-</head>
+            <link rel="stylesheet" type="text/css" href="assets/css/modification.css">
 
-<body>
+    </head>
 
-    <!-- Menu -->
-    <nav class="navbar navbar-default" role="navigation">
-        <div class="container">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-                <!-- Gestion du Menu Burger : Version Mobile -->
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="#">WF3 Mini FaceBook</a>
-            </div>
+    <body>
 
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse navbar-ex1-collapse">
-                <ul class="nav navbar-nav navbar-left">
-                    <li><a href="publicationTrade.php">Les Postes</a></li>
-                </ul>
-                <ul class="nav navbar-nav navbar-right">
-                    <!-- <li><a href="#">Mon Profile</a></li> -->
-                  
-                    <li><a href="confirmLogout.php">Logout</a></li>
-
-                </ul>
-            </div>
-            <!-- /.navbar-collapse -->
-        </div>
-    </nav>
-    <!-- Fin du Menu -->
-
-    <?php require_once 'inc/sidebar.php'; ?>
-
-      <div class="content">
-        <div class="pageTitle text-center">
-            <h1>Modifier votre Profile</h1>
-        </div>
-        <?php if(isset($errorsText)): ?>
+        <!-- Menu -->
+        <nav class="navbar navbar-default" role="navigation">
             <div class="container">
-                <h4 class="error"><?php echo $errorsText; ?></h4>
-            </div>
-        <?php endif; ?>
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <!-- Gestion du Menu Burger : Version Mobile -->
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">WF3 Mini FaceBook</a>
+                </div>
 
-        
-        <!-- Choix image -->
-        <div class="image">
-            <div class="row">
-                <div class="col-xs-8">
-                    <div class="form-group">
-                        <label for="exampleInputFile">Image de profil</label>
-                        <input type="file" name="UserAvatar" id="exampleInputFile">
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse navbar-ex1-collapse">
+                    <ul class="nav navbar-nav navbar-left">
+                        <li><a href="publicationTrade.php">Les Postes</a></li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <!-- <li><a href="#">Mon Profile</a></li> -->
+
+                        <li><a href="confirmLogout.php">Logout</a></li>
+
+                    </ul>
+                </div>
+                <!-- /.navbar-collapse -->
+            </div>
+        </nav>
+        <!-- Fin du Menu -->
+
+        <?php require_once 'inc/sidebar.php'; ?>
+
+            <div class="content">
+                <div class="pageTitle text-center">
+                    <h1>Modifier votre Profile</h1>
+                </div>
+                <?php if(isset($errorsText)): ?>
+                    <div class="container">
+                        <h4 class="error"><?php echo $errorsText; ?></h4>
                     </div>
-                </div>
+                    <?php endif; ?>
 
-                <div class="col-xs-4">
-      
-					<img src="./uploads/<?php echo $_SESSION['UserAvatar']; ?>" class="img-responsive img-circle" alt="Image Avatar">
 
-                </div>
+                        <!-- Choix image -->
+                        <div class="image">
+                            <div class="row">
+                                <div class="col-xs-8">
+                                    <div class="form-group">
+                                        <label for="exampleInputFile">Image de profil</label>
+                                        <input type="file" name="UserAvatar" id="exampleInputFile">
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-4">
+
+                                    <img src="./uploads/<?php echo $_SESSION['UserAvatar']; ?>" class="img-responsive img-circle" alt="Image Avatar">
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <?php if(!empty($success)): ?>
+                            <div class="container">
+                                <h4 class="success"><?php echo $success; ?></h4>
+                            </div>
+                            <?php endif; ?>
+                                <!-- Début Formulaire -->
+                                <form id="modification" class="form-horizontal" action="#" method="post" role="form" data-toggle="validator">
+
+                                    <!-- Nom -->
+                                    <div class="form-group has-feedback">
+                                        <div class="col-xs-12">
+                                            <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                                            <input id="nom" name="UserLastName" required class="form-control" data-error="N'oubliez pas de saisir votre nom" type="text" value="<?=$user['UserLastName'];?>">
+                                            <div class="help-block with-errors"></div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Prénom -->
+                                    <div class="form-group has-feedback">
+                                        <div class="col-xs-12">
+                                            <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                                            <input id="prenom" name="UserFirstName" required class="form-control" data-error="N'oubliez pas de saisir votre prenom" type="text" value="<?=$user['UserFirstName'];?>">
+                                            <div class="help-block with-errors"></div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Email -->
+                                    <div class="form-group has-feedback">
+                                        <div class="col-xs-12">
+                                            <div class="input-group">
+                                                <span class="input-group-addon">@</span>
+                                                <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                                                <input id="email" name="UserEmail" required class="form-control" data-error="N'oubliez pas de saisir votre email" type="email" value="<?=$user['UserEmail'];?>">
+                                                <div class="help-block with-errors"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- mot de passe -->
+                                    <div class="form-group has-feedback">
+                                        <div class="col-xs-12">
+                                            <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                                            <input type="password" class="form-control" name="UserPassword" id="UserPassword" data-error="N'oubliez pas de saisir votre mot de passe">
+                                            <div class="help-block with-errors"></div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Date de Naissance -->
+                                    <div class="form-group has-feedback">
+                                        <div class="col-xs-12">
+                                            <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                                            <input id="date de naissance" name="UserBirthday" required class="form-control" data-error="N'oubliez pas de saisir votre date de naissance" type="text" value="<?=$user['UserBirthday'];?>">
+                                            <div class="help-block with-errors"></div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Textarea ne supporte pas l'attribut value -->
+                                    <!-- Description -->
+                                    <div class="form-group has-feedback">
+                                        <div class="col-xs-12">
+                                            <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                                            <textarea id="description" name="UserDescription" rows="5" value="<?=$user['UserDescription'];?>" class="form-control"></textarea>
+                                            <div class="help-block with-errors"></div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Bouton d'Envoi -->
+                                    <div class="col-xs-12">
+                                        <div class="form-group has-feedback text-center">
+                                            <input type="submit" class="btn btn-primary" name="contact" value="Modifier">
+                                            <!--Modifier</button>-->
+                                        </div>
+                                    </div>
+                                </form>
             </div>
-        </div>
 
-        <?php if(!empty($success)): ?>
-            <div class="container">
-                <h4 class="success"><?php echo $success; ?></h4>
-            </div>
-        <?php endif; ?>
-    <!-- Début Formulaire -->
-    <form id="modification" class="form-horizontal" action="#" method="post" role="form" data-toggle="validator">
+            <!-- inclusion du fichier qui contient tous les script des pages -->
+            <?php include 'inc/include-script.php';?>
 
-        <!-- Nom -->
-        <div class="form-group has-feedback">
-            <div class="col-xs-12">
-                <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
-                <input id="nom" name="UserLastName" required class="form-control" data-error="N'oubliez pas de saisir votre nom" type="text" value="<?=$user['UserLastName'];?>">
-                <div class="help-block with-errors"></div>
-            </div>
-        </div>
+                <script>
+                    // -- Initialisation de jQuery
+                    // $(function () {
 
-        <!-- Prénom -->
-        <div class="form-group has-feedback">
-            <div class="col-xs-12">
-                <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
-                <input id="prenom" name="UserFirstName" required class="form-control" data-error="N'oubliez pas de saisir votre prenom" type="text" value="<?=$user['UserFirstName'];?>">
-                <div class="help-block with-errors"></div>
-            </div>
-        </div>
+                    //     $('#modification').validator().on('submit', function (e) {
 
-        <!-- Email -->
-        <div class="form-group has-feedback">
-            <div class="col-xs-12">
-                <div class="input-group">
-                    <span class="input-group-addon">@</span>
-                    <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
-                    <input id="email" name="UserEmail" required class="form-control" data-error="N'oubliez pas de saisir votre email" type="email" value="<?=$user['UserEmail'];?>">
-                    <div class="help-block with-errors"></div>
-                </div>
-            </div>
-        </div>
+                    //         if (!e.isDefaultPrevented()) {
+                    //             $(this).replaceWith('<div class="alert alert-success">Votre Modification à bien été effectuer.</div>');
+                    //         }
 
-        <!-- mot de passe -->
-        <div class="form-group has-feedback">
-            <div class="col-xs-12">
-                <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
-                <input type="password" class="form-control" name="UserPassword" id="UserPassword" data-error="N'oubliez pas de saisir votre mot de passe">
-                <div class="help-block with-errors"></div>
-            </div>
-        </div>
+                    //         return false;
 
-        <!-- Date de Naissance -->
-        <div class="form-group has-feedback">
-            <div class="col-xs-12">
-                <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
-                <input id="date de naissance" name="UserBirthday" required class="form-control" data-error="N'oubliez pas de saisir votre date de naissance" type="text" value="<?=$user['UserBirthday'];?>">
-                <div class="help-block with-errors"></div>
-            </div>
-        </div>
-		
-		<!-- Textarea ne supporte pas l'attribut value -->
-        <!-- Description -->
-        <div class="form-group has-feedback">
-            <div class="col-xs-12">
-                <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
-                <textarea id="description" name="UserDescription" rows="5" value="<?=$user['UserDescription'];?>" class="form-control"></textarea>
-                <div class="help-block with-errors"></div>
-            </div>
-        </div>
+                    //     });
 
-        <!-- Bouton d'Envoi -->
-        <div class="col-xs-12">
-            <div class="form-group has-feedback text-center">
-                <input type="submit" class="btn btn-primary" name="contact" value="Modifier"><!--Modifier</button>--> 
-            </div>
-        </div>
-    </form>
-</div>
+                    // });
+                </script>
 
-<!-- inclusion du fichier qui contient tous les script des pages -->
-<?php include 'inc/include-script.php';?>
+    </body>
 
-<script>
-    // -- Initialisation de jQuery
-    // $(function () {
-
-    //     $('#modification').validator().on('submit', function (e) {
-
-    //         if (!e.isDefaultPrevented()) {
-    //             $(this).replaceWith('<div class="alert alert-success">Votre Modification à bien été effectuer.</div>');
-    //         }
-
-    //         return false;
-
-    //     });
-
-    // });
-</script>
-
-</body>
-
-</html>
+    </html>

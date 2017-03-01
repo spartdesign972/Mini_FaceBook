@@ -1,5 +1,7 @@
 <?php
 session_start();
+$_SESSION['idUser'] = '';
+
 require_once 'inc/connect.php';
 
 
