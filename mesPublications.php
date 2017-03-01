@@ -3,12 +3,29 @@ session_start();
 
 require_once 'inc/connect.php';
 
+	// suppression du post
+
+	if(isset($_GET['id']) && !empty($_GET['id'])){
+		$idstatut = (int)$_GET['id'];
+		$req = $bdd->prepare('DELETE FROM statut WHERE idStatut = :idSelect');
+		$req->bindValue(':idSelect', $idstatut, PDO::PARAM_INT);
+		if($req->execute()){
+			$Success = 'Le post a ete supprimer avec succés';
+		}else{
+		//Erreur de dev
+			var_dump($req->erroInfo());
+			die; // alias de exit(); => die('hello world')
+		}
+	}
+
+
 
 	$statut = $bdd->prepare('SELECT idStatut, StatutTitle FROM statut WHERE 	Users_idUsers=:idUser');
 	$statut->bindValue(':idUser',$_SESSION['idUser'],PDO::PARAM_INT);
 	$statut->execute();
 	$statut_list = $statut->FetchAll(PDO::FETCH_ASSOC);
 
+var_dump($statut_list[0]['idStatut']);
 ?><!DOCTYPE html>
 <html lang="fr">
 	<head>
@@ -57,6 +74,10 @@ require_once 'inc/connect.php';
 					<h1>Mes Publications</h1>
 				</div>
 				<hr>
+				<?php if(isset($Success)){
+					echo '<h2 class="text-center fadeit green">'.$Success.'</h2>';
+					}
+				?>
 				<div class="publications">
 				<div class="rows ">
 					<div class="col-xs-12">
@@ -92,11 +113,11 @@ require_once 'inc/connect.php';
 				    <h4 class="modal-title" id="myModalLabel">confirmation de suppression</h4>
 				  </div>
 				  <div class="modal-body">
-				    <h1>test</h1>
+				    <h3>Voulez-vous vraiment supprimer ce post ?</h3>
 				  </div>
 				  <div class="modal-footer">
 				    <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
-				    <button type="button" class="btn btn-primary">Supprimer</button>
+				    <a href="mesPublications.php?id=<?=$statut_list[0]['idStatut']?>" class="btn btn-primary">Supprimer</a>
 				  </div>
 				</div>
 				</div>
@@ -109,5 +130,12 @@ require_once 'inc/connect.php';
 
 		<!-- inclusion du fichier qui contient tous les script des pages -->
 		<?php include 'inc/include-script.php';?>
+
+		<script>
+			$(function(){
+					
+				$('.fadeit').fadeOut(3000);
+			});
+		</script>
 	</body>
 </html>
