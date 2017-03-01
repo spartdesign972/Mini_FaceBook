@@ -52,7 +52,6 @@ if(!empty($_POST))
     $mail = $query->fetch(PDO::FETCH_ASSOC); 
     if ($mail['UserEmail']>=1){
      $errors[] = 'L\'email exite déjà' ;
-    
     }
 
 	if(strlen($post['UserPassword'])<5){
