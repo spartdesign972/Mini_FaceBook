@@ -152,7 +152,7 @@ if(!empty($_POST)){
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul class="nav navbar-nav navbar-left">
-                    <li><a href="publicationTrade.php">Les Postes</a></li>
+                    <li><a href="publicationTrade.php">Les Posts</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <!-- <li><a href="#">Mon Profile</a></li> -->
@@ -170,7 +170,7 @@ if(!empty($_POST)){
 
       <div class="content">
         <div class="pageTitle text-center">
-            <h1>Modifier votre Profile</h1>
+            <h1>Modifier votre Profil</h1>
         </div>
         <?php if(isset($errorsText)): ?>
             <div class="container">
