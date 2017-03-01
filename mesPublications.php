@@ -58,23 +58,35 @@ require_once 'inc/connect.php';
 				</div>
 				<hr>
 				<div class="publications">
-				
+				<div class="rows ">
+					<div class="col-xs-12">
+						<table class="table table-border">
+							<thead>
+								<tr>
+									<th>Titre du Poste</th>
+									<th>Modiffier le poste</th>
+									<th>Supprimer</th>
+								</tr>
+							</thead>
 				<?php foreach($statut_list as $value):?>
-				
-					<div class="publica">
-						<h3>
-							<?= $value['StatutTitle']; ?>
-							<a href="publier.php?id=<?=$value['idStatut']?>"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-							<a href="effacer.php"><i class="fa fa-trash" aria-hidden="true"></i></a>
-						</h3>
-					</div>
-					
-				<?php endforeach; ?>
-					
-				</div>
-        
-		</div>
 
+					<tr>
+					<td><?= $value['StatutTitle']; ?></td>
+
+					<td class="text-center">
+						<a href="publier.php?id=<?=$value['idStatut']?>"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+					</td>
+					<td class="text-center">
+						<a href="effacer.php"><i class="fa fa-trash" aria-hidden="true"></i></a>
+					</td>
+					</tr>
+
+				<?php endforeach; ?>
+				</table>
+				</div>
+			</div>	
+		</div>
+	</div>
 
 		<!-- inclusion du fichier qui contient tous les script des pages -->
 		<?php include 'inc/include-script.php';?>
