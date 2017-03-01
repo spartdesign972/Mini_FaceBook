@@ -15,7 +15,6 @@ if(!empty($_POST))
 	{
 		$post[$key] = (trim(strip_tags($value))); //netoyage des données, on enlève les balise HTML et autres ainsi que les espaces en début et fin de chaine
 	}
-	var_dump($post);
 	if(strlen($post['UserLastName'])<5 || strlen($post['UserLastName'])>50)
 	{
 		$errors[] = 'Votre nom doit faire entre  5 et 50 caratères';
@@ -35,12 +34,13 @@ if(!empty($_POST))
 		$errors[] = 'Le mot de passe doit faire au minimum 5 caractères';
 	}
 	
-	if(strlen($post['UserBirthday'])<10)
+	if(!empty($post['UserBirthday']))
 	{
-		$d = explode('/',$post['UserBirthday']);
-		$post['UserBirthday'] = $d[2].'-'.$d[1].'-'.$d[0];
-		
-		$errors[] = 'La date doit être au format 05/02/1956';
+		if (!preg_match("/\d{4}\-\d{2}-\d{2}/", $post['UserBirthday'])) {
+		    $errors[] = 'La date doit etre au format Année-mois-jours';
+		}
+	}else{
+		$errors[] = 'veuillez entrer une date sous la forme année-mois-jour';
 	}
 	
 	if(!filter_var($post['UserEmail'],FILTER_VALIDATE_EMAIL))
@@ -54,7 +54,6 @@ if(!empty($_POST))
 		$passwordHash = password_hash($post['UserPassword'], PASSWORD_DEFAULT);
 		
 	}
-		var_dump($passwordHash);
 	if(!isset($post['UserGender']))
 	{
 		$errors[] = 'Précisez si vous êtes une femme ou un homme...';
@@ -96,7 +95,6 @@ if(!empty($_POST))
 	else {
 		$errors[] = 'Aucune photo sélectionnée';
 	}
-	
 	if(count($errors) === 0){
 		
 		$insert = $bdd->prepare('INSERT INTO users( UserLastName, UserFirstName, UserEmail, UserPassword, UserBirthday, UserGender, UserAvatar, UserDescription, UserSubscribeDate) VALUES (:UserLastName, :UserFirstName, :UserEmail, :UserPassword, :UserBirthday, :UserGender, :UserAvatar, :UserDescription, :UserSubscribeDate)');
@@ -178,7 +176,7 @@ if(!empty($_POST))
                                 <input type="password" class="form-control" name="UserPassword" id="UserPassword" placeholder="Mot de passe">
                             </div>
                             <div class="form-group col-lg-12 col-md-12 text-center">
-                                <input type="text" class="form-control" name="UserBirthday" id="datepicker" placeholder="Date de naissance">
+                                <input type="text" class="form-control" name="UserBirthday" id="datepicker" placeholder="Date de naissance =>année-mois-jour">
 
                                 <input type="hidden" name="UserSubscribeDate" value="<?php echo date('Y-m-d'); ?>">
 
@@ -209,9 +207,9 @@ if(!empty($_POST))
         <!-- inclusion du fichier qui contient tous les script des pages -->
         <?php include 'inc/include-script.php';?>
             <script>
-                $(function () {
-                    $("#datepicker").datepicker();
-                });
+                // $(function () {
+                //     $("#datepicker").datepicker();
+                // });
             </script>
     </body>
 
