@@ -28,7 +28,6 @@ if(!empty($_POST)){
         $errors[] = 'L\'url de la vidéo n\'est pas valide';
     }
     */
-    var_dump($post['StatutVideoURL']);
     if(isset($_FILES['StatutPictureUrl']) && $_FILES['StatutPictureUrl']['error'] === 0)
     {
 
@@ -59,8 +58,10 @@ if(!empty($_POST)){
             }
 
         }
+    }else {
+     $newPictureName = $post ['newPicture'];
     }
-	
+
 	if(count($errors) === 0){
 		
 		if($post['submit'] == 'Publier'){
@@ -83,12 +84,12 @@ if(!empty($_POST)){
 			
 			$select->bindValue(':Users_idUsers',$_SESSION['idUser']);
 			
-		$select->execute() or die(print_r($insert->errorInfo()));;;
+		$select->execute() or die(print_r($insert->errorInfo()));
 		
 		}
 		else{
 			
-		$select = $bdd->prepare('UPDATE statut SET StatutTitle=:StatutTitle, StatutPictureUrl=:StatutPictureUrl, StatutVideoURL=:StatutVideoURL, StatutText:StatutText WHERE idStatut=:idStatut');
+		$select = $bdd->prepare('UPDATE statut SET StatutTitle=:StatutTitle, StatutPictureUrl=:StatutPictureUrl, StatutVideoURL=:StatutVideoURL, StatutText=:StatutText WHERE idStatut=:idStatut');
 			
 			$select->bindValue(':StatutTitle',$post['StatutTitle']);
 			
@@ -100,6 +101,7 @@ if(!empty($_POST)){
 			
 			$select->bindValue(':idStatut',$post['idStatut']);
 			
+            $select->execute() or die(print_r($insert->errorInfo()));
 		}
 	}//Fin de errors=0
 }//Fin de !empty($_POST)
@@ -174,6 +176,7 @@ if(!empty($_POST)){
                         <div class="form-group">
                             <div class="col-xs-12">
                                 <input id="picture" name="StatutPictureUrl" type="file" placeholder="Image à la une" accept="image/*" value="<?=$info['StatutPictureUrl'];?>" class="form-control">
+                                <input type="hidden" name="newPicture" value="<?=$info['StatutPictureUrl'];?>">
                             </div>
                         </div>
                         <br>
