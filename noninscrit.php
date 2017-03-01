@@ -56,7 +56,23 @@ require_once 'inc/connect.php';
                             <section id="partie1">
                                 <p><i class="fa fa-user fa-3x" aria-hidden="true"> Publier par: <?= $value['UserLastName']; ?> <?= $value['UserFirstName']; ?></i></p>
                                 <h3><?= $value['StatutTitle']; ?></h3>
-                                <p>
+                                
+								<?php if(isset($value['StatutVideoUrl'])){
+						
+								?>
+								
+								<video>
+								
+									<source src="<?= $value['StatutVideoUrl']; ?>">
+								
+								</video>
+								
+								<?php
+									}//Fin if StatutVideoUrl
+									
+								?>
+								
+								<p>
                                     <?= $value['StatutText']; ?>
                                 </p>
 
