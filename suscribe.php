@@ -7,7 +7,7 @@ $maxSize = (1024 * 1000) * 2; // Taille maximum du fichier
 $uploadDir = 'uploads/'; // Répertoire d'upload
 $mimeTypeAvailable = ['image/jpg', 'image/jpeg', 'image/pjpeg', 'image/png', 'image/gif'];
 $errors = [];	
-
+date_default_timezone_set('America/Martinique');
 #verification de l'existance de l'envoi des données puis vérificatio de celle ci
 if(!empty($_POST))
 {
