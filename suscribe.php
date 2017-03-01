@@ -34,10 +34,16 @@ if(!empty($_POST))
 
 	if(!empty($post['UserBirthday']))
 	{
-
+		/*
 		if (!preg_match("/\d{4}\-\d{2}-\d{2}/", $post['UserBirthday'])) {
 		    $errors[] = 'La date doit etre au format Année-mois-jours';
 		}
+		*/
+		$d = explode('/',$post['UserBirthday']);
+		var_dump($d);
+		$d = $d[2].'-'.$d[1].'-'.$d[0];
+		
+		
 	}else{
 		$errors[] = 'veuillez entrer une date sous la forme année-mois-jour';
 	}
@@ -49,9 +55,11 @@ if(!empty($_POST))
     
      //Vérification que l'email existe déjà
     $query = $bdd->query('SELECT COUNT(*) AS email FROM users WHERE UserEmail ="'.$post['UserEmail'].'"'); 
-    $mail = $query->fetch(PDO::FETCH_ASSOC); 
-    if ($mail['UserEmail']>=1){
-     $errors[] = 'L\'email exite déjà' ;
+    $query->execute();
+	$mail = $query->fetch(PDO::FETCH_ASSOC);
+		var_dump($mail);
+    if ($mail['email']=='1'){
+     $errors[] = 'L\'email existe déjà' ;
     }
 
 	if(strlen($post['UserPassword'])<5){
@@ -113,7 +121,7 @@ if(!empty($_POST))
 			
 			$insert->bindValue(':UserPassword',$passwordHash);
 
-			$insert->bindValue(':UserBirthday',$post['UserBirthday']);
+			$insert->bindValue(':UserBirthday',$d);
 
 			$insert->bindValue(':UserGender',$post['UserGender']);
 
@@ -148,7 +156,7 @@ if(!empty($_POST))
 
 		}else{
 			
-			var_dump($res->errorInfo());
+			var_dump($insert->errorInfo());
 			//die; // alias de exit(); => die('hello world')
 		}
 		
@@ -209,7 +217,7 @@ if(!empty($_POST))
                                 <input type="password" class="form-control" name="UserPassword" id="UserPassword" placeholder="Mot de passe">
                             </div>
                             <div class="form-group col-lg-12 col-md-12 text-center">
-                                <input type="text" class="form-control" name="UserBirthday" id="datepicker" placeholder="Date de naissance =>année-mois-jour">
+                                <input type="text" class="form-control" name="UserBirthday" id="datepicker" placeholder="jj/mm/aaaa"><!--Date de naissance =>année-mois-jour-->
 
                                 <input type="hidden" name="UserSubscribeDate" value="<?php echo date('Y-m-d'); ?>">
 
