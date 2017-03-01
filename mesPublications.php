@@ -25,7 +25,6 @@ require_once 'inc/connect.php';
 	$statut->execute();
 	$statut_list = $statut->FetchAll(PDO::FETCH_ASSOC);
 
-var_dump($statut_list[0]['idStatut']);
 ?><!DOCTYPE html>
 <html lang="fr">
 	<head>
