@@ -53,39 +53,45 @@ require_once 'inc/connect.php';
             <?php require_once 'inc/sidebar.php'; ?>
                 
                 <!-- contenu -->
+				
+				<?php foreach($statut_list as $value):?>
+				
                 <div class="content">
-                
-                    <?php foreach($statut_list as $value):?>
-                
-                    <div class="col-sm-12 publications">
-                        <!-- <section id="partie1"> -->
-                        <p><i class="fa fa-user fa-3x" aria-hidden="true"> Publier par: <?= $value['UserLastName']; ?> <?= $value['UserFirstName']; ?></i></p>
-                        <h3><?= $value['StatutTitle']; ?></h3>
-                        <p><?= $value['StatutText']; ?></p>
-    					  							
-                        <div class="pouce">
-    								
-							<?php
-								$select = $bdd->prepare('SELECT idStatut FROM statut INNER JOIN likestatus ON statut.idStatut=likestatus.Statut_idStatut WHERE idStatut=:idStatut');
-									$select->bindValue(':idStatut',$value['idStatut']);
-									$select->execute()or die(print_r($select->errorInfo()));
+                    <div class="col-sm-12">
+                        <section id="partie1">
+                            <p><i class="fa fa-user fa-3x" aria-hidden="true"> Publier par: <?= $value['UserLastName']; ?> <?= $value['UserFirstName']; ?></i></p>
+                            <h3><?= $value['StatutTitle']; ?></h3>
+                            <p><?= $value['StatutText']; ?></p>
+							
+					              							
+<div class="pouce">
 								
-								$like = $select->FetchAll(PDO::FETCH_ASSOC);
-								
-								if(count($like) > 0){
-	
-									echo count($like).'&nbsp;';
+								<?php
+									$select = $bdd->prepare('SELECT idStatut FROM statut INNER JOIN likestatus ON statut.idStatut=likestatus.Statut_idStatut WHERE idStatut=:idStatut');
+										$select->bindValue(':idStatut',$value['idStatut']);
+										$select->execute()or die(print_r($select->errorInfo()));
 									
-								}
-							?>							
-							<i class="fa fa-thumbs-up fa-3x" aria-hidden="true"></i>
-						</div>
+									$like = $select->FetchAll(PDO::FETCH_ASSOC);
+									
+									if(count($like) > 0){
+		
+										echo count($like).'&nbsp;';
+										
+									}
+								
+								?>
+																
+								<i class="fa fa-thumbs-up fa-3x" aria-hidden="true"></i>
+							
+							</div>
+                        </section>
                     </div>
-                    <?php endforeach; ?>
-                        <!-- </section> -->
+
                 </div>
+				
+				<?php endforeach; ?>
+				
 				<!-- Fin contenu -->
-                </div>
         </main>
        
         <!-- Fin de Page -->
