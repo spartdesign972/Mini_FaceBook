@@ -195,16 +195,35 @@ p {
     overflow: hidden;
 }
 
-h3{
+h3.posttitle{
     text-align: center;
+    margin-top: 30px;
+}
+hr.posthr{
+    margin-top: 10px;
 }
 .pouce{
     text-align: center;
     margin-top: 10px
 }
-
-
-
+.headpost{
+    position: relative;
+}
+.headpost img{
+    margin-right: 10px;
+    float: left;
+}
+.headpost h3{
+    position: absolute;
+    top : -20px;
+    left: 80px;
+}
+.headpost h2{
+    position: absolute;
+    top: 10px;
+    left: 80px;
+}
+.clear{clear: both;}
 /*===================================================
                 mesPublications.php
 ===================================================*/

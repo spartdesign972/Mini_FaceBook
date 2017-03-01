@@ -1,7 +1,7 @@
 <?php
 session_start();
 require_once 'inc/connect.php';
-        $statut = $bdd->prepare('SELECT * FROM statut INNER JOIN users ON statut.Users_idUsers=users.idUser');
+        $statut = $bdd->prepare('SELECT *,U.UserAvatar FROM statut S INNER JOIN users U ON S.Users_idUsers=U.idUser');
         $statut->execute();
         $statut_list = $statut->FetchAll(PDO::FETCH_ASSOC);
 ?><!DOCTYPE html>
@@ -54,23 +54,36 @@ require_once 'inc/connect.php';
                     <?php foreach($statut_list as $value):?>
                     
                     <section id="partie1">
-                        <p><i class="fa fa-user fa-3x" aria-hidden="true"> Publier par: <?= $value['UserLastName']; ?> <?= $value['UserFirstName']; ?></i></p>
-                        <h3><?= $value['StatutTitle']; ?></h3>
-                        <?php if(isset($value['StatutVideoUrl'])){
+                        <div class='headpost'>
+                            <?php if(!empty($value['UserAvatar'])){ ?>
+                            <img src="./uploads/<?php echo $value['UserAvatar']; ?>" alt="" height=70>
+                            <?php }else{ echo '<i class="fa fa-user-circle-o fa-4x" aria-hidden="true"></i>'; } ?>
+                        <h3> Publier par: </h3>
+                        <h2><?= $value['UserLastName']; ?> <?= $value['UserFirstName']; ?></h2>
+                        </div>
+                        <div class="clear"></div>
+                        <hr class="posthr">
+                        <h3 class='posttitle'><?= $value['StatutTitle']; ?></h3>
+
+                        <?php if(!empty($value['StatutVideoURL'])){ ?>	
+                        <div class="row text-center">
+						<object width="425" height="344">
+                            <param name="movie" value="<?= $value['StatutVideoURL']; ?>"></param>
+                            <param name="allowFullScreen" value="true"></param>
+                            <param name="allowscriptaccess" value="always"></param>
+                            <embed src="http://www.youtube.com/v/nnlSfD1KT_w&hl=fr&fs=1&" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="425" height="344"></embed>
+                        </object>
+                        </div>
 						
-						?>
+                        <?php 
+                        }else{
+                            echo '<div class="row text-center">';
+                            echo '<img src="'.$value['StatutPictureUrl'].'" alt="image poste"/>';
+                            echo '</div>';
+                        }
+                        ?>
+
 						
-						<video>
-						
-							<source src="<?= $value['StatutVideoUrl']; ?>">
-						
-						</video>
-						
-						<?php
-							}//Fin if StatutVideoUrl
-							
-						?>
-						<img src="<?= $value['StatutPictureUrl']; ?>"/>
 						<p><?= $value['StatutText']; ?></p>
                         
                         <div class="pouce">
