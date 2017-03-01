@@ -147,6 +147,7 @@ hr{
     background-color: #fff;
     padding: 20px;
     border-radius: 15px;
+    overflow: hidden;
 }
 .publica a{
     margin-left: 15px;
