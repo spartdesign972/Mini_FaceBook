@@ -8,7 +8,7 @@ require_once 'inc/connect.php';
 	{
 		$_SESSION = array();
 		session_destroy();
-		session_start();
+		// session_start();
 		sleep(1);
 		header('location: auth_inscription.php');
 	}
