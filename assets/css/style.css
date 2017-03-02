@@ -65,7 +65,7 @@ a.navbar-auth-inscription:active {
 }
 
 .inscrip {
-    margin-top: 100px;
+    margin-top: 50px;
 }
 .authAlert{
     position: relative;
@@ -230,4 +230,10 @@ hr.posthr{
 
 .green{
     color: green;
+}
+/*=======================================================
+                Css pour noninscrit
+=======================================================*/
+.noninscrit{
+    margin:  -15px;
 }

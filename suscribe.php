@@ -40,11 +40,7 @@ if(!empty($_POST))
 		}
 		*/
 		$d = explode('/',$post['UserBirthday']);
-		$d = $d[2].'-'.$d[1].'-'.$d[0];
-		
-		
-	}else{
-		$errors[] = 'veuillez entrer une date sous la forme année-mois-jour';
+		$d = $d[2].'-'.$d[1].'-'.$d[0];	
 	}
 	
 	if(!filter_var($post['UserEmail'],FILTER_VALIDATE_EMAIL))
@@ -103,10 +99,8 @@ if(!empty($_POST))
 		else {
 			$errors[] = 'Le fichier n\'est pas une image valide';
 		}
-	}
-
-	else {
-		$errors[] = 'Aucune photo sélectionnée';
+	}else {
+		$newPictureName = 'avatar.png';
 	}
 	if(count($errors) === 0){
 		

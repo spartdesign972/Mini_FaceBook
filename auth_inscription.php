@@ -124,10 +124,13 @@ if(!empty($_POST)){
 						</div>
 				</form>
 			</div>
-
 			<div class="container text-center inscrip">
 				<h2>Pas encore membre ? t'es fou ou quoi ? inscrit toi vite !</h2>
 				<a href="suscribe.php" class="btn btn-default">S'inscrire</a>
+			</div>
+			<div class="container text-center inscrip">
+				<h2>Encor un doute ? Vient faire un pti tour et voir ce que tu manque!</h2>
+				<a href="noninscrit.php" class="btn btn-default">Visiter</a>
 			</div>
 
 

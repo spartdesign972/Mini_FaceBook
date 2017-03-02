@@ -3,9 +3,11 @@ session_start();
 
 require_once 'inc/connect.php';
 
+$maxSize = (1024 * 1000) * 2; // Taille maximum du fichier
+$uploadDir = 'uploads/';
 $errors = [];
 $success = '';
-require_once 'inc/connect.php';
+$mimeTypeAvailable = ['image/jpg', 'image/jpeg', 'image/pjpeg', 'image/png', 'image/gif'];
 
 	$user = $bdd->prepare('SELECT * FROM users WHERE idUser=:idUser');
 	$user->bindValue(':idUser',$_SESSION['idUser'],PDO::PARAM_INT);
@@ -38,19 +40,21 @@ if(!empty($_POST)){
         $errors[] = 'Il y a une erreur au niveau du mail...';
     }
 
-    if(empty($post['UserPassword'])){
-        $errors[] = 'Veuillez entrer votre MDP';
+    if(strlen($post['UserPassword'])<5){
+        $errors[] = 'Le mot de passe doit faire au minimum 5 caractères';
     }else{
         $passwordHash = password_hash($post['UserPassword'], PASSWORD_DEFAULT);
     }
 
-    if(strlen($post['UserPassword'])<5)
+    if(!empty($post['UserBirthday']))
     {
-        $errors[] = 'Le mot de passe doit faire au minimum 5 caractères';
-    }
-
-    if (!preg_match("/\d{4}\-\d{2}-\d{2}/", $post['UserBirthday'])) {
-        $errors[] = 'La date doit etre au format Année-mois-jours';
+        /*
+        if (!preg_match("/\d{4}\-\d{2}-\d{2}/", $post['UserBirthday'])) {
+            $errors[] = 'La date doit etre au format Année-mois-jours';
+        }
+        */
+        $d = explode('/',$post['UserBirthday']);
+        $d = $d[2].'-'.$d[1].'-'.$d[0]; 
     }
 
     if(isset($_FILES['UserAvatar']) && $_FILES['UserAvatar']['error'] === 0){
@@ -73,25 +77,19 @@ if(!empty($_POST)){
                 if(!move_uploaded_file($_FILES['UserAvatar']['tmp_name'], $uploadDir.$newPictureName)){
                     $errors[] = 'Erreur lors de l\'upload de la photo';
                 }
-            }
-
-            else {
+            }else {
                 $errors[] = 'La taille du fichier excède 2 Mo';
             }
 
-        }
-
-        else {
+        }else {
             $errors[] = 'Le fichier n\'est pas une image valide';
         }
-    }
-
-    else {
+    }else {
         $newPictureName = $_SESSION['UserAvatar'];
     }
 	if(count($errors) === 0){
 		
-		$update = $bdd->prepare('UPDATE users SET UserLastName=:UserLastName, UserFirstName=:UserFirstName, UserEmail=:UserEmail, UserBirthday=:UserBirthday, UserAvatar=:UserAvatar, UserDescription=:UserDescription WHERE 	idUser=:idUser');
+		$update = $bdd->prepare('UPDATE users SET UserLastName=:UserLastName, UserFirstName=:UserFirstName, UserEmail=:UserEmail, UserBirthday=:UserBirthday, UserAvatar=:UserAvatar, UserDescription=:UserDescription WHERE idUser=:idUser');
 			
 			$update->bindValue(':UserLastName',$post['UserLastName']);
 
@@ -108,7 +106,19 @@ if(!empty($_POST)){
 			$update->bindValue(':idUser',$_SESSION['idUser'],PDO::PARAM_INT);
 
 		if($update->execute()){
-          $success = "Modifications Effectuer";
+          $res = $bdd->prepare('SELECT UserLastName, UserFirstName, UserEmail, UserPassword, UserAvatar, idUser  FROM users WHERE UserEmail = :dataEmail');
+        
+                $res->bindValue(':dataEmail', $post['UserEmail'], PDO::PARAM_STR);
+
+                if($res->execute()){
+                    $user = $res->fetch(PDO::FETCH_ASSOC);
+
+                        $_SESSION['lastname']    = $user['UserLastName'];
+                        $_SESSION['firstname']   = $user['UserFirstName'];
+                        $_SESSION['UserAvatar']  = $user['UserAvatar'];
+
+                        header('location: mesPublications.php');
+                }
         }else{
             die(print_r($update->errorInfo()));
         }
@@ -180,7 +190,17 @@ if(!empty($_POST)){
 
         
         <!-- Choix image -->
-        <div class="image">
+        
+
+        <?php if(!empty($success)): ?>
+            <div class="container">
+                <h4 class="success"><?php echo $success; ?></h4>
+            </div>
+        <?php endif; ?>
+    <!-- Début Formulaire -->
+    <form id="modification" class="form-horizontal" action="#" method="post" role="form" data-toggle="validator" enctype="multipart/form-data">
+
+    <div class="image">
             <div class="row">
                 <div class="col-xs-8">
                     <div class="form-group">
@@ -191,19 +211,11 @@ if(!empty($_POST)){
 
                 <div class="col-xs-4">
       
-					<img src="./uploads/<?php echo $_SESSION['UserAvatar']; ?>" class="img-responsive img-circle" alt="Image Avatar">
+                    <img src="./uploads/<?php echo $_SESSION['UserAvatar']; ?>" class="img-circle" alt="Image Avatar" height="110px">
 
                 </div>
             </div>
         </div>
-
-        <?php if(!empty($success)): ?>
-            <div class="container">
-                <h4 class="success"><?php echo $success; ?></h4>
-            </div>
-        <?php endif; ?>
-    <!-- Début Formulaire -->
-    <form id="modification" class="form-horizontal" action="#" method="post" role="form" data-toggle="validator">
 
         <!-- Nom -->
         <div class="form-group has-feedback">

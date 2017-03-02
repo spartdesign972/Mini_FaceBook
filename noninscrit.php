@@ -36,7 +36,7 @@ require_once 'inc/connect.php';
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse navbar-ex1-collapse">
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="modificationProfile.php">Inscription</a></li>
+                        <li><a href="suscribe.php">Inscription</a></li>
                     </ul>
                 </div>
                 <!-- /.navbar-collapse -->
@@ -46,69 +46,57 @@ require_once 'inc/connect.php';
 
         <!-- Page -->
         <main class="container">
-            <div class="row">
+            <div class="row noninscrit">
 
                 <!-- contenu -->
-                <?php foreach($statut_list as $value):?>
-
-                    <div class="content">
-                        <div class="col-sm-12">
-                            <section id="partie1">
-                                <p><i class="fa fa-user fa-3x" aria-hidden="true"> Publier par: <?= $value['UserLastName']; ?> <?= $value['UserFirstName']; ?></i></p>
-                                <h3><?= $value['StatutTitle']; ?></h3>
-                                
-								<?php if(isset($value['StatutVideoUrl'])){
-						
-								?>
-								
-								<video>
-								
-									<source src="<?= $value['StatutVideoUrl']; ?>">
-								
-								</video>
-								
-								<?php
-									}//Fin if StatutVideoUrl
-									
-								?>
-								
-								<p>
-                                    <?= $value['StatutText']; ?>
-                                </p>
-
-
-                                <div class="pouce">
-
-                                    <?php
-									$select = $bdd->prepare('SELECT idStatut FROM statut INNER JOIN likestatus ON statut.idStatut=likestatus.Statut_idStatut WHERE idStatut=:idStatut LIMIT 3');
-										$select->bindValue(':idStatut',$value['idStatut']);
-										$select->execute()or die(print_r($select->errorInfo()));
-									
-									$like = $select->FetchAll(PDO::FETCH_ASSOC);
-									
-									if(count($like) > 0){
-		
-										echo count($like).'&nbsp;';
-										
-									}
-								
-								?>
-
-                                        <i class="fa fa-thumbs-up fa-3x" aria-hidden="true"></i>
-
-                                </div>
-                            </section>
+            <div class="content">
+                <div class="col-xs-12">
+                    
+                    <?php foreach($statut_list as $value):?>
+                    
+                    <section id="partie1">
+                        <div class='headpost'>
+                            <?php if(!empty($value['UserAvatar'])){ ?>
+                            <img src="./uploads/<?php echo $value['UserAvatar']; ?>" alt="" height=70>
+                            <?php }else{ echo '<i class="fa fa-user-circle-o fa-4x" aria-hidden="true"></i>'; } ?>
+                        <h3> Publier par: </h3>
+                        <h2><?= $value['UserLastName']; ?> <?= $value['UserFirstName']; ?></h2>
                         </div>
+                        <div class="clear"></div>
+                        <hr class="posthr">
+                        <h3 class='posttitle'><?= $value['StatutTitle']; ?></h3>
 
-                    </div>
+                        <?php if(!empty($value['StatutVideoURL'])){ ?>  
+                        <div class="row text-center">
+                        <object width="425" height="344">
+                            <param name="movie" value="<?= $value['StatutVideoURL']; ?>"></param>
+                            <param name="allowFullScreen" value="true"></param>
+                            <param name="allowscriptaccess" value="always"></param>
+                            <embed src="http://www.youtube.com/v/nnlSfD1KT_w&hl=fr&fs=1&" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="425" height="344"></embed>
+                        </object>
+                        </div>
+                        
+                        <?php 
+                        }else{
+                            echo '<div class="row text-center">';
+                            echo '<img src="'.$value['StatutPictureUrl'].'" alt="image poste"/>';
+                            echo '</div>';
+                        }
+                        ?>
 
-                    <?php endforeach; ?>
-
-                        <!-- Fin contenu -->
-        </main>
-
-        <!-- inclusion du fichier qui contient tous les script des pages -->
-        <?php include 'inc/include-script.php';?>
-    </body>
-
+                        
+                        <p><?= $value['StatutText']; ?></p>
+                        
+                    </section>
+            <?php endforeach; ?>
+                </div>
+            </div>
+            
+            <!-- Fin contenu -->
+            </main>
+            
+            <!-- Fin de Page -->
+            <!-- inclusion du fichier qui contient tous les script des pages -->
+            <?php include 'inc/include-script.php';?>
+        </body>l
     </html>
