@@ -175,7 +175,7 @@ if(!empty($_POST)){
         </div>
     </nav>
     <!-- Fin du Menu -->
-
+    <div class="container">
     <?php require_once 'inc/sidebar.php'; ?>
 
       <div class="content">
@@ -282,6 +282,7 @@ if(!empty($_POST)){
             </div>
         </div>
     </form>
+</div>
 </div>
 
 <!-- inclusion du fichier qui contient tous les script des pages -->

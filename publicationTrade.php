@@ -1,6 +1,8 @@
 <?php
 session_start();
 require_once 'inc/connect.php';
+include 'inc/youtuburl.php';
+
         $statut = $bdd->prepare('SELECT *,U.UserAvatar FROM statut S INNER JOIN users U ON S.Users_idUsers=U.idUser');
         $statut->execute();
         $statut_list = $statut->FetchAll(PDO::FETCH_ASSOC);
@@ -63,22 +65,21 @@ require_once 'inc/connect.php';
                         </div>
                         <div class="clear"></div>
                         <hr class="posthr">
-                        <h3 class='posttitle'><?= $value['StatutTitle']; ?></h3>
+                        <h3 class='posttitle'><?=$value['StatutTitle']; ?></h3>
 
                         <?php if(!empty($value['StatutVideoURL'])){ ?>	
                         <div class="row text-center">
-						<object width="425" height="344">
-                            <param name="movie" value="<?= $value['StatutVideoURL']; ?>"></param>
-                            <param name="allowFullScreen" value="true"></param>
-                            <param name="allowscriptaccess" value="always"></param>
-                            <embed src="http://www.youtube.com/v/nnlSfD1KT_w&hl=fr&fs=1&" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="425" height="344"></embed>
-                        </object>
+					
+                        <?php
+                            $videourl = getYoutubeEmbedUrl($value['StatutVideoURL']);
+                        ?>
+                        <iframe width="650" height="400" src="https://www.youtube.com/embed/<?=$videourl ?>" frameborder="0" allowfullscreen></iframe>               
                         </div>
 						
                         <?php 
                         }else{
                             echo '<div class="row text-center">';
-                            echo '<img src="'.$value['StatutPictureUrl'].'" alt="image poste"/>';
+                            echo '<img src="./uploads/'.$value['StatutPictureUrl'].'" alt="image poste" class="img-thumbnail"/>';
                             echo '</div>';
                         }
                         ?>

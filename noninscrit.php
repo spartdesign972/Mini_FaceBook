@@ -50,7 +50,7 @@ require_once 'inc/connect.php';
 
                 <!-- contenu -->
             <div class="content">
-                <div class="col-xs-12">
+                <div class="col-xs-12 col-xs-offset-2">
                     
                     <?php foreach($statut_list as $value):?>
                     

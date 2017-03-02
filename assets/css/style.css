@@ -152,6 +152,19 @@ hr{
 
 /*============= fin css mesPublications ==============*/
 
+//**********************************************************
+                CSS de la page publier
+***********************************************************/
+.success{
+    background-color: rgba(0, 0, 0, 0.4);
+    line-height: 2em;
+    color: #fff;
+    text-align: center;
+    border-radius: 10px;
+    text-shadow: 2px 2px #000;
+}
+/*============= fin css Publier ==============*/
+
 
 p {
     text-align: center;
@@ -234,6 +247,3 @@ hr.posthr{
 /*=======================================================
                 Css pour noninscrit
 =======================================================*/
-.noninscrit{
-    margin:  -15px;
-}
