@@ -6,7 +6,7 @@ require_once 'inc/connect.php';
 $post          = [];
 $errors        = [];
 $passwordMatch = true;
-$emailNotExist = '';
+$emailNotExist = true;
 
 
 
@@ -25,7 +25,7 @@ if(!empty($_POST)){
 
 	if(count($errors) === 0 ){
 		// ===== insertion des infos dans la base de donnée
-		$res = $bdd->prepare('SELECT UserLastName, UserFirstName, UserEmail, UserPassword, idUser  FROM users WHERE UserEmail = :dataEmail');
+		$res = $bdd->prepare('SELECT UserLastName, UserFirstName, UserEmail, UserPassword, UserAvatar, idUser  FROM users WHERE UserEmail = :dataEmail');
 		
 		$res->bindValue(':dataEmail', $post['email'], PDO::PARAM_STR);
 		
@@ -38,8 +38,10 @@ if(!empty($_POST)){
 				$_SESSION['lastname']    = $user['UserLastName'];
 				$_SESSION['firstname']   = $user['UserFirstName'];
 				$_SESSION['idUser']      = $user['idUser'];
+				$_SESSION['UserAvatar']  = $user['UserAvatar'];
 
-				// header('location: exo_recette.php');
+				header('location: mesPublications.php');
+
 			}else{
 				$passwordMatch = false;
 			}
@@ -71,7 +73,7 @@ if(!empty($_POST)){
 	</head>
 	<body>
 		<!-- La topbar de nav -->
-		<nav class="navbar navbar-default text-center navAuth" role="navigation">
+		<nav class="navbar navbar-default text-center" role="navigation">
 			<div class="container">
 				<a class="navbar-auth-inscription" href="#">WF3 Mini FaceBook</a>
 				</div><!-- /.navbar-collapse -->
@@ -93,11 +95,11 @@ if(!empty($_POST)){
 			<?php endif; ?>
 
 			<?php 
-			if(!$passwordMatch){
-				echo '<div class="container">';
+			if(!$passwordMatch || !$emailNotExist){
+				echo '<div class="container text-center">';
 				echo '<div class="alert alert-danger authAlert">';
-				echo '<h3>bonjour '.$user['UserFirstName'].'<br>';
-				echo 'Les mots de passes ne correspondent pas</h3><br>';
+				echo '<h3>bonjour '.$post['email'].'<hr>';
+				echo 'Votre email ou les mots de passes ne correspondent pas</h3><br>';
 				echo '<a href="auth_inscription.php" class="btn btn-default">Réessayer</a>';
 				echo '</div>';
 				echo '</div>';
@@ -122,10 +124,13 @@ if(!empty($_POST)){
 						</div>
 				</form>
 			</div>
-
 			<div class="container text-center inscrip">
 				<h2>Pas encore membre ? t'es fou ou quoi ? inscrit toi vite !</h2>
 				<a href="suscribe.php" class="btn btn-default">S'inscrire</a>
+			</div>
+			<div class="container text-center inscrip">
+				<h2>Encor un doute ? Vient faire un pti tour et voir ce que tu manque!</h2>
+				<a href="noninscrit.php" class="btn btn-default">Visiter</a>
 			</div>
 
 

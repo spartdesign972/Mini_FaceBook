@@ -1,154 +1,271 @@
-<?php 
-?>
-    <!DOCTYPE html>
+<?php
+session_start();
+
+require_once 'inc/connect.php';
+
+$errors = [];
+
+
+if(!empty($_POST)){
+	
+	foreach($_POST as $key => $value){
+		
+		$post[$key] = $value; 
+		
+	}
+    if(strlen($post['StatutTitle'])<1) 
+    {
+        $errors[] = 'Rentrez un titre pour votre statut';
+    }
+
+    if(strlen($post['StatutText']) < 10)
+    {
+        $errors[] = 'Votre statut doit comporter au moins 10 caratères';
+    }
+    /*
+    if (empty($post['StatutVideoURL'])  || !filter_var($post['StatutVideoURL'], FILTER_VALIDATE_URL))
+    {
+        $errors[] = 'L\'url de la vidéo n\'est pas valide';
+    }
+    */
+    if(isset($_FILES['StatutPictureUrl']) && $_FILES['StatutPictureUrl']['error'] === 0)
+    {
+
+        $finfo = new finfo(); //déclaration d'un objet de type finfo
+        $mimeType = $finfo->file($_FILES['StatutPictureUrl']['tmp_name'], FILEINFO_MIME_TYPE); // récuperation du type mime du fichier, cette façon de faire est la plus sécure
+
+        $extension = pathinfo($_FILES['StatutPictureUrl']['name'], PATHINFO_EXTENSION);//Récuperer l'extension du ficher grace au path info
+
+        if(in_array($mimeType, $mimeTypeAvailable))
+        {
+
+            if($_FILES['StatutPictureUrl']['size'] <= $maxSize){
+
+                if(!is_dir($uploadDir)){
+                    mkdir($uploadDir, 0755);//création du dossier via le CHmod, permet d'avoir les droit d'ecriture
+                }
+
+                $newPictureName = uniqid('statutImg_').'.'.$extension;//changeent du nom du fichier avec le prefixe avatar et lui donnant un id unique. Adie les remplacement
+
+                if(!move_uploaded_file($_FILES['StatutPictureUrl']['tmp_name'], $uploadDir.$newPictureName)){
+                    $errors[] = 'Erreur lors de l\'upload de la photo';
+                }
+            }
+
+            else 
+            {
+                $errors[] = 'La taille du fichier excède 2 Mo';
+            }
+
+        }
+    }else {
+     $newPictureName = $post ['newPicture'];
+    }
+
+	if(count($errors) === 0){
+		
+		if($post['submit'] == 'Publier'){
+		
+		require_once 'inc/connect.php';
+			
+		$select = $bdd->prepare('INSERT INTO statut( StatutTitle, StatutPictureUrl, StatutVideoURL, StatutText, StatutDatePublication, Users_idUsers) VALUES (:StatutTitle, :StatutPictureUrl, :StatutVideoURL, :StatutText, now(), :Users_idUsers)');
+			
+            #now() permet de récuperer la date actuelle  http://stackoverflow.com/questions/9541029/insert-current-date-in-datetime-format-mysql
+
+			$select->bindValue(':StatutTitle',$post['StatutTitle']);
+			
+			$select->bindValue(':StatutPictureUrl',$post['StatutPictureUrl']);
+			
+			$select->bindValue(':StatutVideoURL',$post['StatutVideoURL']);
+			
+			$select->bindValue(':StatutText',$post['StatutText']);
+			
+			//$select->bindValue(':StatutDatePublication',$post['StatutDatePublication']); // inutile...
+			
+			$select->bindValue(':Users_idUsers',$_SESSION['idUser']);
+			
+		$select->execute() or die(print_r($insert->errorInfo()));
+		
+		}
+		else{
+			
+		$select = $bdd->prepare('UPDATE statut SET StatutTitle=:StatutTitle, StatutPictureUrl=:StatutPictureUrl, StatutVideoURL=:StatutVideoURL, StatutText=:StatutText WHERE idStatut=:idStatut');
+			
+			$select->bindValue(':StatutTitle',$post['StatutTitle']);
+			
+			$select->bindValue(':StatutPictureUrl',$newPictureName);
+			
+			$select->bindValue(':StatutVideoURL',$post['StatutVideoURL']);
+			
+			$select->bindValue(':StatutText',$post['StatutText']);
+			
+			$select->bindValue(':idStatut',$post['idStatut']);
+			
+            $select->execute() or die(print_r($insert->errorInfo()));
+		}
+	}//Fin de errors=0
+}//Fin de !empty($_POST)
+?><!DOCTYPE html>
     <html lang="fr">
+
 
     <head>
         <meta charset="UTF-8">
         <title>Plublication</title>
-
-        <!-- Pour Internet Explorer : S'assurer qu'il utilise la dernière version du moteur de rendu -->
-        <meta http-equiv="X-UA-Compatible" content="IE-edge">
-
-        <!-- Affichage sans zoom pour les mobiles -->
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-
-        <!-- Bootstrap CSS -->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-
-        <!-- Styles CSS -->
-        <link rel="stylesheet" href="assets/css/style.css">
-
-        <!-- HTML5 Shiv -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js" integrity="sha256-sqQlcOZwgKkBRRn5WvShSsuopOdq9c3U+StqgPiFhHQ=" crossorigin="anonymous"></script>
-
+        <!-- inclusion du fichier qui contient toutes besoin commune au page, comme le css, etc -->
+        <?php include 'inc/include-head.php';?>
     </head>
-
     <body>
         <nav class="navbar navbar-default" role="navigation">
             <div class="container">
                 <!-- Brand and toggle get grouped for better mobile display -->
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
                     </button>
                     <a class="navbar-brand" href="#">WF3 Mini FaceBook</a>
                 </div>
-
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse navbar-ex1-collapse">
+                    <ul class="nav navbar-nav navbar-left">
+                        <li><a href="publicationTrade.php">Les Postes</a></li>
+                    </ul>
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="#">Mon Profile</a></li>
-                        <li><a href="#">Logout</a></li>
+                        <li><a href="modificationProfile.php">Mon Profile</a></li>
+                        <li><a href="confirmLogout.php">Logout</a></li>
                     </ul>
                 </div>
                 <!-- /.navbar-collapse -->
             </div>
         </nav>
-
-
-        <main class="container">
-
-            <h2>Bonjour</h2>
-
-            <section class="row">
+        <div class="container">
+            <!-- sidebar -->
+            <?php require_once 'inc/sidebar.php'; ?>
+            
+            <div class="content">
                 <!-- En-Tête de Présentation -->
-                <div class="contact col-xs-12">
+                <div class="pageTitle text-center">
                     <h1>Publier</h1>
                 </div>
+                
+				<?php
+				
+					if(!empty($_GET)){
+	
+					require_once 'inc/connect.php';
+					
+					if(is_numeric($_GET['id'])){
+						$select = $bdd->prepare('SELECT * FROM statut WHERE idStatut=:idStatut');
+							$select->bindValue(':idStatut',$_GET['id'],PDO::PARAM_INT);
+							$select->execute();
+							$info = $select->Fetch(PDO::FETCH_ASSOC);
 
-
-
-
-            </section>
-
-            <section class="row">
-
-
-                <div class="comment col-sm-4">
-                    <div class="media">
-                        <div class="media-left">
-                            <a href="#">
-                                <img class="media-object photo-profile" src="" width="100" height="100" alt="...">
-                            </a>
-                        </div>
-                        <div class="media-body">
-                            <a href="#" class="anchor-username"><h4 class="media-heading">Nom</h4></a>
-                            <a href="#" class="anchor-time">Prenom</a>
-                        </div>
-                    </div>
-                </div>
-
+				?>
                 <!-- Début Formulaire -->
-                <div class="col-sm-8">
-                    <form id="contact" class="form-horizontal" method="post" enctype="multipart/form-data">
-                        <fieldset>
-
-                            <!-- Titre de la publication -->
-                            <div class="form-group">
-                                <div class="col-md-8">
-                                    <input id="title" name="title" type="text" placeholder="Titre de la publication" class="form-control input-md">
-                                </div>
+                    <form id="publier" class="form-horizontal" method="post" enctype="multipart/form-data" role="form" data-toggle="validator">
+                        <!-- Titre de la publication -->
+                        <div class="form-group">
+                            <div class="col-xs-12">
+                                <input id="title" name="StatutTitle" type="text" placeholder="Titre de la publication" value="<?=$info['StatutTitle'];?>" class="form-control">
                             </div>
-
-                            <!-- Image -->
-                            <div class="form-group">
-                                <div class="col-md-8">
-                                    <input id="picture" name="picture" type="file" placeholder="Image à la une" accept="image/*" class="form-control input-md">
-                                </div>
+                        </div>
+                        <!-- Image -->
+                        <div class="form-group">
+                            <div class="col-xs-12">
+                                <input id="picture" name="StatutPictureUrl" type="file" placeholder="Image à la une" accept="image/*" value="<?=$info['StatutPictureUrl'];?>" class="form-control">
+                                <input type="hidden" name="newPicture" value="<?=$info['StatutPictureUrl'];?>">
                             </div>
-
-                            <br>
-                            <p><strong>OU</strong></p>
-                            <br>
-
-                            <!-- Url Video -->
-                            <div class="form-group">
-
-                                <div class="col-md-8">
-                                    <input id="UrlVideo" name="UrlVideo" type="text" placeholder="Entrez l'Url d'une video" class="form-control input-md">
-                                </div>
+                        </div>
+                        <br>
+                        <p><strong>OU</strong></p>
+                        <br>
+                        <!-- Url Video -->
+                        <div class="form-group">
+                            <div class="col-xs-12">
+                                <input id="UrlVideo" name="StatutVideoURL" type="text" placeholder="Entrez l'Url d'une video" value="<?=$info['StatutVideoURL'];?>" class="form-control">
                             </div>
-                            <!-- Publication -->
-                            <div class="form-group">
-                                <div class="col-md-8">
+                        </div>
+                        <!-- Publication -->
+                        <div class="form-group">
+                            <div class="col-xs-12">
+                                <textarea class="form-control" rows="15" name="StatutText" id="comment" placeholder="Publier" ><?=$info['StatutText'];?></textarea>
 
-                                    <textarea class="form-control" rows="15" id="comment" placeholder="Publier"></textarea>
-                                </div>
                             </div>
-
-
-                            <!-- Bouton d'Envoi -->
-                            <div class="form-group">
-                                <div class="<col-md-7></col-md-7> col-xs-offset-4">
-                                    <button type="submit" class="btn btn-primary" name="inscription" value="Ajouter le Contact">Publier</button>
-                                </div>
+                        </div>
+						
+						<input type="hidden" name="idStatut" value="<?=$info['idStatut'];?>">
+						
+                        <!-- Bouton d'Envoi -->
+                        <div class="form-group">
+                            <div class="col-xs-12 text-center">
+                                <input type="submit" class="btn btn-primary" name="submit" value="Modifier">
                             </div>
-
-                        </fieldset>
+                        </div>
                     </form>
-                </div>
+            </div>
+        </div>
+        <!-- Fin Formulaire -->
+		<?php
+		
+					}//Fin is_numeric
+				
+			}//Fin !empty $_GET
+			else{
+		?>
+		
+				<!-- Début Formulaire -->
+                    <form id="publier" class="form-horizontal" method="post" enctype="multipart/form-data" role="form" data-toggle="validator">
+                        <!-- Titre de la publication -->
+                        <div class="form-group">
+                            <div class="col-xs-12">
+                                <input id="title" name="StatutTitle" type="text" placeholder="Titre de la publication" class="form-control">
+                            </div>
+                        </div>
+                        <!-- Image -->
+                        <div class="form-group">
+                            <div class="col-xs-12">
+                                <input id="picture" name="StatutPictureUrl" type="file" placeholder="Image à la une" accept="image/*" class="form-control">
+                            </div>
+                        </div>
+                        <br>
+                        <p><strong>OU</strong></p>
+                        <br>
+                        <!-- Url Video -->
+                        <div class="form-group">
+                            <div class="col-xs-12">
+                                <input id="UrlVideo" name="StatutVideoURL" type="text" placeholder="Entrez l'Url d'une video"  class="form-control">
+                            </div>
+                        </div>
+                        <!-- Publication -->
+                        <div class="form-group">
+                            <div class="col-xs-12">
+                                <textarea class="form-control" rows="15" name="StatutText" id="comment" placeholder="Publier" ></textarea>
 
-                <!-- /.col-sm-6 -->
-                <!-- Fin Formulaire -->
-
-            </section>
-        </main>
-
-
-
-
-
-
-
-        <!-- jQuery -->
-        <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
-
-        <!-- Bootstrap JS -->
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-    </body>
-
-    </html>
+                            </div>
+                        </div>
+                        <!-- Bouton d'Envoi -->
+                        <div class="form-group">
+                            <div class="col-xs-12 text-center">
+                                <input type="submit" class="btn btn-primary" name="submit" value="Publier">
+                            </div>
+                        </div>
+                    </form>
+            </div>
+        </div>
+        <!-- Fin Formulaire -->
+		
+		<?php
+		
+			}//Fin else !empty($_GET)
+		
+		?>
+		
+    </div>
+    </main>
+    <!-- inclusion du fichier qui contient tous les script des pages -->
+    <?php include 'inc/include-script.php';?>
+</body>
+</html>
