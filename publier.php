@@ -3,13 +3,18 @@ session_start();
 
 require_once 'inc/connect.php';
 
+if(!isset($_SESSION['isConnected']) || $_SESSION['isConnected'] == false){
+
+    header('Location: auth_inscription.php');
+    die;
+}
+
 #définition de quelques variabl pour gerer les images
 $maxSize = (1024 * 1000) * 2; // Taille maximum du fichier
 $uploadDir = 'uploads/'; // Répertoire d'upload
 $mimeTypeAvailable = ['image/jpg', 'image/jpeg', 'image/pjpeg', 'image/png', 'image/gif'];
 $errors = [];   
 date_default_timezone_set('America/Martinique');
-
 
 
 if(!empty($_POST)){
