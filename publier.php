@@ -3,7 +3,13 @@ session_start();
 
 require_once 'inc/connect.php';
 
-$errors = [];
+#définition de quelques variabl pour gerer les images
+$maxSize = (1024 * 1000) * 2; // Taille maximum du fichier
+$uploadDir = 'uploads/'; // Répertoire d'upload
+$mimeTypeAvailable = ['image/jpg', 'image/jpeg', 'image/pjpeg', 'image/png', 'image/gif'];
+$errors = [];   
+date_default_timezone_set('America/Martinique');
+
 
 
 if(!empty($_POST)){
@@ -59,7 +65,7 @@ if(!empty($_POST)){
 
         }
     }else {
-     $newPictureName = $post ['newPicture'];
+     $newPictureName = '';
     }
 
 	if(count($errors) === 0){
@@ -74,7 +80,7 @@ if(!empty($_POST)){
 
 			$select->bindValue(':StatutTitle',$post['StatutTitle']);
 			
-			$select->bindValue(':StatutPictureUrl',$post['StatutPictureUrl']);
+			$select->bindValue(':StatutPictureUrl',$newPictureName);
 			
 			$select->bindValue(':StatutVideoURL',$post['StatutVideoURL']);
 			
@@ -84,7 +90,11 @@ if(!empty($_POST)){
 			
 			$select->bindValue(':Users_idUsers',$_SESSION['idUser']);
 			
-		$select->execute() or die(print_r($insert->errorInfo()));
+            if($select->execute()){
+                $success = 'post créer avec succés';
+            }else{
+                var_dump($insert->errorInfo());
+            }
 		
 		}
 		else{
@@ -101,9 +111,17 @@ if(!empty($_POST)){
 			
 			$select->bindValue(':idStatut',$post['idStatut']);
 			
-            $select->execute() or die(print_r($insert->errorInfo()));
+            if($select->execute()){
+                $success = 'post modifié avec succés';
+            }else{
+                var_dump($insert->errorInfo());
+            }
+
+
 		}
-	}//Fin de errors=0
+	}else{
+        $errorsText = implode('<br>', $errors);
+    }//Fin de errors=0
 }//Fin de !empty($_POST)
 ?><!DOCTYPE html>
     <html lang="fr">
@@ -150,12 +168,26 @@ if(!empty($_POST)){
                 <div class="pageTitle text-center">
                     <h1>Publier</h1>
                 </div>
+
+                <?php if(isset($errorsText)): ?>
+                <div class="container">
+                    <h4 class="error"><?php echo $errorsText; ?></h4>
+                </div>
+                <?php endif; ?>
                 
+                <?php if(isset($success)): // La variable $success n'existe que lorsque tout est ok ?>
+                <div class="text-center">
+                    <div class="page-header success">
+                        <h2><?php echo $success; ?></h2>
+                    </div>
+                </div>
+                <?php endif; ?>
+
+
+
 				<?php
 				
 					if(!empty($_GET)){
-	
-					require_once 'inc/connect.php';
 					
 					if(is_numeric($_GET['id'])){
 						$select = $bdd->prepare('SELECT * FROM statut WHERE idStatut=:idStatut');
@@ -267,5 +299,14 @@ if(!empty($_POST)){
     </main>
     <!-- inclusion du fichier qui contient tous les script des pages -->
     <?php include 'inc/include-script.php';?>
+
+    <script>
+        $(function(){
+                
+            $('.success').fadeOut(3000);
+
+        });
+
+    </script>
 </body>
 </html>
