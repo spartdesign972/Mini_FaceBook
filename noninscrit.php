@@ -1,6 +1,7 @@
 <?php
 session_start();
 require_once 'inc/connect.php';
+include 'inc/youtuburl.php';
 
 	$statut = $bdd->prepare('SELECT * FROM statut INNER JOIN users ON statut.Users_idUsers=users.idUser LIMIT 3');	
 		$statut->execute();
@@ -68,14 +69,11 @@ require_once 'inc/connect.php';
 
                         <?php if(!empty($value['StatutVideoURL'])){ ?>  
                         <div class="row text-center">
-                        <object width="425" height="344">
-                            <param name="movie" value="<?= $value['StatutVideoURL']; ?>"></param>
-                            <param name="allowFullScreen" value="true"></param>
-                            <param name="allowscriptaccess" value="always"></param>
-                            <embed src="http://www.youtube.com/v/nnlSfD1KT_w&hl=fr&fs=1&" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="425" height="344"></embed>
-                        </object>
+                            <?php
+                                $videourl = getYoutubeEmbedUrl($value['StatutVideoURL']);
+                            ?>
+                            <iframe width="650" height="400" src="https://www.youtube.com/embed/<?=$videourl ?>" frameborder="0" allowfullscreen></iframe>
                         </div>
-                        
                         <?php 
                         }else{
                             echo '<div class="row text-center">';

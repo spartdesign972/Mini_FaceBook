@@ -1,5 +1,12 @@
 <?php
 session_start();
+
+if(!isset($_SESSION['isConnected']) || $_SESSION['isConnected'] == false){
+
+    header('Location: auth_inscription.php');
+    die;
+}
+
 require_once 'inc/connect.php';
 include 'inc/youtuburl.php';
 
