@@ -107,7 +107,7 @@ include 'inc/youtuburl.php';
                                     echo count($like).'&nbsp;';
                                 }
                             ?>
-                            <a href="confirmLike.php?id=<?php echo $value['idStatut'];?>">
+                            <a href="confirmLike2.php?id=<?php echo $value['idStatut'];?>">
                                 <i class="fa fa-thumbs-up fa-3x" aria-hidden="true"></i>
                             </a>
                             

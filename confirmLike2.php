@@ -1,10 +1,7 @@
 <?php
-
-#crash test !!!!! 
 session_start();
 require_once 'inc/connect.php';
 
-$display = true;
 
 function Redirect($e)
 {
@@ -12,37 +9,33 @@ function Redirect($e)
 	{
 		case 1:
 			echo '<p class="alert alert-danger"> Erreur, vous avez déjà like le post</p>';
-			header("Location : publicationTrade.php");
+			echo '<a href="publicationTrade.php">Retour aux publications</a>'
 			break;
 		case 2:
 			echo '<p class="alert alert-success"> Post like :B </p>';
-			sleep(3);
-			header("Location : publicationTrade.php");
+			echo '<a href="publicationTrade.php">Retour aux publications</a>'
 			break;
 		case 3:
 			echo '<p class="alert alert-warning"> Erreur, Aucun post sélectionné </p>';
-			sleep(3);
-			header("Location : publicationTrade.php");
+			echo '<a href="publicationTrade.php">Retour aux publications</a>'
 			break;
 		case 4:
 			echo '<p class="alert alert-danger"> Erreur, utilisateur non reconu </p>';
-			sleep(3);
-			header("Location : auth_inscription.php");
+			echo '<a href="auth_inscription.php">Retour aux publications</a>'
 			break;
 	}
 }
 
 if(!isset($_GET['id']) || empty($_GET['id']))
 {
-	$display = false;
-	Redirect(3);
+	$error = 3;
 }
 
 if(empty($_SESSION['idUser']))
 {
-	$display = false;
-	Redirect(4);
+	$error = 4;
 }
+
 
 
 if(!empty($_GET['id']) || !empty($_SESSION['idUser']))
@@ -56,28 +49,9 @@ if(!empty($_GET['id']) || !empty($_SESSION['idUser']))
 	if($like->execute())
 	{
 		$res = $like->fetch(PDO::FETCH_ASSOC);
-		if($res[''])
+		if(!empty($res)) //si la requette ne retourne pas de résultat
 		{
-			
-			if((isset($_GET['action'])) && ($_GET['action'] == 'confirm'))
-			{
-				$newLike = $bdd->prepare('INSERT INTO likestatus SET(Statut_idStatut,Users_idUsers) VALUES(:idStatut, :idUser)');
-				$newLike->bindValue(':idSatut', $idSatut, PDO::PARAM_INT);
-				$newLike->bindValue(':idUser', $_SESSION['idUser'], PDO::PARAM_INT);
-				if($newLike->execute)
-				{
-					$present = 2;
-				}
-				else
-				{
-					var_dump($newLike->errorInfo());
-				}
-			}
-			
-		}
-		else
-		{
-			$present = 1;
+			$error = 1;
 		}
 	}
 	else
@@ -85,10 +59,27 @@ if(!empty($_GET['id']) || !empty($_SESSION['idUser']))
 		var_dump($like->errorInfo());
 	}
 }
+
+#si dans mon url j'ai une action qui s'appelle confirm et qu'elle existe + s'il y a un id dans l'url et qu'il n'est pas vide
+if((isset($_GET['action'])) && ($_GET['action'] == 'confirm') && isset($_GET['id']) && !empty($_GET['id'])) 
+{
+	$newLike = $bdd->prepare('INSERT INTO likestatus SET(Statut_idStatut,Users_idUsers) VALUES(:idStatut, :idUser)');
+	$newLike->bindValue(':idSatut', $idSatut, PDO::PARAM_INT);
+	$newLike->bindValue(':idUser', $_SESSION['idUser'], PDO::PARAM_INT);
+	if($newLike->execute)
+	{
+		$error = 2;
+	}
+	else
+	{
+		var_dump($newLike->errorInfo());
+	}
+}
+
 ?>
 <!DOCTYPE html>
-<html lang="en">
-<head>
+<html lang="fr">
+	<head>
 	<meta charset="UTF-8">
 	<title>Like confirm</title>
 	<!-- Contient toutes les dépense du head lié a ma page-->
@@ -130,12 +121,15 @@ if(!empty($_GET['id']) || !empty($_SESSION['idUser']))
 				<div class="jumbotron text-center">
 					<div class="container">
 						<?php 
-						if(isset($present)){Redirect($present);}
-						if($display):
+						if(isset($error))
+						{
+							Redirect($error);
+						}
+						if(!isset($error)):
 						?>
 						<h1>Voulez vous confirmer le like??</h1>
 						<p>
-						<a class="btn btn-primary btn-lg" href="confirmLike.php?action=confirm+id=<?php echo $idStatut;?>">Like !!!!!!!!!!!</a>
+						<a class="btn btn-primary btn-lg" href="confirmLike2.php?action=confirm&amp;id=<?php echo $idStatut;?>">Like !!!!!!!!!!!</a>
 						</p>
 					<?php endif?>
 					</div>
@@ -147,4 +141,8 @@ if(!empty($_GET['id']) || !empty($_SESSION['idUser']))
 </body>
 </html>
 
-
+<!-- pour ouvrir une modale sur le like
+	<a href="confirmLike.php?id=<?php //echo $value['idStatut'];?>" onclick="window.open(this.href, '', 'toolbar=no, location=no, directories=no, status=yes, scrollbars=yes, resizable=yes, copyhistory=no, width=600, height=350'); return false;">
+		<button class="btn btn-info">Ajouter au panier</button>
+	</a>
+-->
