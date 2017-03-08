@@ -9,19 +9,19 @@ function Redirect($e)
 	{
 		case 1:
 			echo '<p class="alert alert-danger"> Erreur, vous avez déjà like le post</p>';
-			echo '<a href="publicationTrade.php">Retour aux publications</a>'
+			echo '<a href="publicationTrade.php">Retour aux publications</a>';
 			break;
 		case 2:
 			echo '<p class="alert alert-success"> Post like :B </p>';
-			echo '<a href="publicationTrade.php">Retour aux publications</a>'
+			echo '<a href="publicationTrade.php">Retour aux publications</a>';
 			break;
 		case 3:
 			echo '<p class="alert alert-warning"> Erreur, Aucun post sélectionné </p>';
-			echo '<a href="publicationTrade.php">Retour aux publications</a>'
+			echo '<a href="publicationTrade.php">Retour aux publications</a>';
 			break;
 		case 4:
 			echo '<p class="alert alert-danger"> Erreur, utilisateur non reconu </p>';
-			echo '<a href="auth_inscription.php">Retour aux publications</a>'
+			echo '<a href="auth_inscription.php">Retour aux publications</a>';
 			break;
 	}
 }
